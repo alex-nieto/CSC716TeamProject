@@ -22,12 +22,6 @@ private:
     Process process;    
     //if new state, old state will be null
     
-//    vector<Process> newQueue;
-//    vector<Process> readyQueue;
-//    vector<Process> runningQueue;
-//    vector<Process> blockedQueue;
-//    vector<Process> terminated;
-    
 public:
     //default constructor
     Event();
@@ -47,11 +41,11 @@ public:
     void printEventInfo(); //outputs the event info (At time X: Process {id} moves from {state} to {state})
     //overloaded operator methods
     void operator=(const Event &event); //assign event to another event (= operator)
-    bool operator<(Event &event); //check if event is greater than another event (time)
-    bool operator>(Event &event); //check if event is less than another event (time)
-    bool operator<=(Event &event); //check if event is less than or equal to another event (time)
-    bool operator>=(Event &event); //check if event is greater than or equal to another event (time)
-    bool operator==(Event &event); //check if event is equal to another event (time)
+    bool operator<(const Event &event) const; //check if event is greater than another event (time)
+    bool operator>(const Event &event) const; //check if event is less than another event (time)
+    bool operator<=(const Event &event) const; //check if event is less than or equal to another event (time)
+    bool operator>=(const Event &event) const; //check if event is greater than or equal to another event (time)
+    bool operator==(const Event &event) const; //check if event is equal to another event (time)
 };
 
 #endif /* Event_hpp */
