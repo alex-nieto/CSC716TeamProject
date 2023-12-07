@@ -42,10 +42,11 @@ int Algorithm :: calculateCPUutilization(){
 }
 void Algorithm :: printAlgorithmInfo(){
     cout << name << ": " << endl;
-    cout << "Total Time required is " << calculateTotalTimeExecution() << "time units" << endl;
+    cout << "Total Time required is " << calculateTotalTimeExecution() << " time units" << endl;
     cout << "CPU Utilization is " << calculateCPUutilization() << "%" << endl;
 }
 void Algorithm :: printProcessInfo(){
+    //loop through all the processes and print details
     for(int i = 0; i < numOfProcesses; i++){
         cout << "Process " << i << ": " << endl;
         processes[i].printProcessInfo();
