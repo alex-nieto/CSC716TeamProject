@@ -17,7 +17,7 @@ Event :: Event(int time, Process process, string newState, string oldState){
     this->time = time;
     this->oldState = oldState;
     this->newState = newState;
-    this->process = process;
+    this->process = &process;
 }
 void Event :: setTime(int time){
     this->time = time;
@@ -29,7 +29,7 @@ void Event :: setNewState(string newState){
     this->newState = newState;
 }
 void Event :: setProcess(Process process){
-    this->process = process;
+    this->process = &process;
 }
 int Event :: getTime(){
     return time;
@@ -40,11 +40,11 @@ string Event :: getOldState(){
 string Event :: getNewState(){
     return newState;
 }
-Process Event :: getProcess(){
+Process* Event :: getProcess(){
     return process;
 }
 void Event :: printEventInfo(){
-    cout << "At time " << time << ": Process " << process.getProcessId() << "moves from " << oldState << " to " << newState << endl;
+    cout << "At time " << time << ": Process " << process->getProcessId() << "moves from " << oldState << " to " << newState << endl;
 }
 void Event :: operator=(const Event &event){
     this->time = event.time;
@@ -52,18 +52,18 @@ void Event :: operator=(const Event &event){
     this->newState = event.newState;
     this->process = event.process;
 }
-bool Event :: operator<(Event &event){
+bool Event :: operator<(const Event &event) const {
     return this->time < event.time;
 }
-bool Event :: operator>(Event &event){
+bool Event :: operator>(const Event &event) const{
     return this->time > event.time;
 }
-bool Event :: operator<=(Event &event){
+bool Event :: operator<=(const Event &event) const{
     return this->time <= event.time;
 }
-bool Event :: operator>=(Event &event){
+bool Event :: operator>=(const Event &event) const{
     return this->time >= event.time;
 }
-bool Event :: operator==(Event &event){
+bool Event :: operator==(const Event &event) const{
     return this->time == event.time;
 }
