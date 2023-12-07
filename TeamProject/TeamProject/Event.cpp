@@ -52,18 +52,18 @@ void Event :: operator=(const Event &event){
     this->newState = event.newState;
     this->process = event.process;
 }
-bool Event :: operator<(Event &event){
+bool Event :: operator<(const Event &event) const {
     return this->time < event.time;
 }
-bool Event :: operator>(Event &event){
+bool Event :: operator>(const Event &event) const{
     return this->time > event.time;
 }
-bool Event :: operator<=(Event &event){
+bool Event :: operator<=(const Event &event) const{
     return this->time <= event.time;
 }
-bool Event :: operator>=(Event &event){
+bool Event :: operator>=(const Event &event) const{
     return this->time >= event.time;
 }
-bool Event :: operator==(Event &event){
+bool Event :: operator==(const Event &event) const{
     return this->time == event.time;
 }
