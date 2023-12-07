@@ -57,10 +57,6 @@ bool Simulation :: readParameterInput(){
     {
         parameterlist.push_back(segment);
     }
-    if(parameterlist.size() == 1){
-        cout << "There was an error with your input. Please try again." << endl;
-        return true;
-    }
     for(int i = 1; i < parameterlist.size(); i++ ){
         if(parameterlist[i] == "d " || parameterlist[i] == "d"){
             this->detail = true;

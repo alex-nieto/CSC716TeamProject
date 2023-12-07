@@ -18,6 +18,7 @@ class Process{
     
 private:
     //private data members
+    int processId; //process Id
     int arrivalTime; //arrival time of the process
     int serviceTime; //how long the process will execute for
     int priority; //the priority of the process against other processes
@@ -28,16 +29,18 @@ public:
     //default constructor
     Process();
     //constructor initializers
-    Process(int serviceTime);
-    Process(int arrivalTime, int serviceTime);
-    Process(int arrivalTime, int serviceTime, int priority);
-    Process(int arrivalTime, int serviceTime, int priority, int startTime);
+    Process(int processId, int serviceTime);
+    Process(int processId, int arrivalTime, int serviceTime);
+    Process(int processId, int arrivalTime, int serviceTime, int priority);
+    Process(int processId, int arrivalTime, int serviceTime, int priority, int startTime);
     //set methods
+    void setProcessId(int processId);
     void setArrivalTime(int arrivalTime);
     void setServiceTime(int serviceTime);
     void setPriority(int priority);
     void setStartTime(int startTime);
     //get methods
+    int getProcessId();
     int getArrivalTime();
     int getServiceTime();
     int getPriority();

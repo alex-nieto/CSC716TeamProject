@@ -8,34 +8,42 @@
 #include "Process.hpp"
 
 Process :: Process(){
+    processId = 0;
     arrivalTime = 0;
     serviceTime = 0;
     priority = 0;
     startTime = 0;
 }
-Process :: Process(int serviceTime){
+Process :: Process(int processId, int serviceTime){
+    this->processId = processId;
     arrivalTime = 0;
     this->serviceTime = serviceTime;
     priority = 0;
     startTime = 0;
 }
-Process :: Process(int arrivalTime, int serviceTime){
+Process :: Process(int processId, int arrivalTime, int serviceTime){
+    this->processId = processId;
     this->arrivalTime = arrivalTime;
     this->serviceTime = serviceTime;
     priority = 0;
     startTime = 0;
 }
-Process :: Process(int arrivalTime, int serviceTime, int priority){
+Process :: Process(int processId, int arrivalTime, int serviceTime, int priority){
+    this->processId = processId;
     this->arrivalTime = arrivalTime;
     this->serviceTime = serviceTime;
     this->priority = priority;
     startTime = 0;
 }
-Process :: Process(int arrivalTime, int serviceTime, int priority, int startTime){
+Process :: Process(int processId, int arrivalTime, int serviceTime, int priority, int startTime){
+    this->processId = processId;
     this->arrivalTime = arrivalTime;
     this->serviceTime = serviceTime;
     this->priority = priority;
     this->startTime = startTime;
+}
+void Process :: setProcessId(int processId){
+    this->processId = processId;
 }
 void Process :: setArrivalTime(int arrivalTime){
     this->arrivalTime = arrivalTime;
@@ -45,6 +53,9 @@ void Process :: setServiceTime(int serviceTime){
 }
 void Process :: setStartTime(int startTime){
     this->startTime = startTime;
+}
+int Process :: getProcessId(){
+    return processId;
 }
 int Process :: getArrivalTime(){
     return arrivalTime;
