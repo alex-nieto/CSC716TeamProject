@@ -48,8 +48,8 @@ void Algorithm :: printProcessInfo(){
     }
 }
 void Algorithm :: printProcessEvents(){
-    /*events.sort();
+    events.sort();
     for(Event event : events){
         event.printEventInfo();
-    }*/
+    }
 }
