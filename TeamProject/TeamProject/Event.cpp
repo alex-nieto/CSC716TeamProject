@@ -1,69 +1,51 @@
 //
-//  Event.cpp
+//  Event.hpp
 //  TeamProject
 //
 //  Created by Alex C Nieto on 12/5/23.
 //
 
-#include "Event.hpp"
+#ifndef Event_hpp
+#define Event_hpp
 
-Event :: Event(){
-    time = 0;
-    oldState = "";
-    newState = "";
-    process = NULL;
-}
-Event :: Event(int time, Process process, string newState, string oldState){
-    this->time = time;
-    this->oldState = oldState;
-    this->newState = newState;
-    this->process = process;
-}
-void Event :: setTime(int time){
-    this->time = time;
-}
-void Event :: setOldState(string oldState){
-    this->oldState = oldState;
-}
-void Event :: setNewState(string newState){
-    this->newState = newState;
-}
-void Event :: setProcess(Process process){
-    this->process = process;
-}
-int Event :: getTime(){
-    return time;
-}
-string Event :: getOldState(){
-    return oldState;
-}
-string Event :: getNewState(){
-    return newState;
-}
-Process Event :: getProcess(){
-    return process;
-}
-void Event :: printEventInfo(){
-    cout << "At time " << time << ": Process " << process.getProcessId() << "moves from " << oldState << " to " << newState << endl;
-}
-void Event :: operator=(const Event &event){
-    this->time = event.time;
-    this->oldState = event.oldState;
-    this->newState = event.newState;
-    this->process = event.process;
-}
-bool Event :: operator<(const Event &event) const {
-    return this->time < event.time;
-}
-bool Event :: operator>(const Event &event) const{
-    return this->time > event.time;
-}
-bool Event :: operator<=(const Event &event) const{
-    return this->time <= event.time;
-}
-bool Event :: operator>=(const Event &event) const{
-    return this->time >= event.time;
-}
-bool Event :: operator==(const Event &event) const{
-    return this->time == event.time;
-}
+#include <stdio.h>
+#include "Process.hpp"
+
+class Event{
+    
+private:
+    //protected data members (accessible by child classes)
+    int time;
+    //Possible states: new, ready, running, blocked, or terminated
+    string oldState;
+    string newState;
+    Process* process;
+    //if new state, old state will be null
+    
+public:
+    //default constructor
+    Event();
+    //constructor initializer
+    Event(int time, Process process, string newState, string oldState);
+    //set methods
+    void setTime(int time);
+    void setOldState(string oldState);
+    void setNewState(string newState);
+    void setProcess(Process process);
+    //get methods
+    int getTime();
+    string getOldState();
+    string getNewState();
+    Process* getProcess();
+    //print methods
+    void printEventInfo(); //outputs the event info (At time X: Process {id} moves from {state} to {state})
+    //overloaded operator methods
+    void operator=(const Event &event); //assign event to another event (= operator)
+    bool operator<(const Event &event) const; //check if event is greater than another event (time)
+    bool operator>(const Event &event) const; //check if event is less than another event (time)
+    bool operator<=(const Event &event) const; //check if event is less than or equal to another event (time)
+    bool operator>=(const Event &event) const; //check if event is greater than or equal to another event (time)
+    bool operator==(const Event &event) const; //check if event is equal to another event (time)
+};
+
+#endif /* Event_hpp */
