@@ -9,7 +9,8 @@
 #define Algorithm_hpp
 
 #include <stdio.h>
-#include "Process.hpp"
+#include <list>
+#include "Event.hpp"
 
 //algorithm class is an abstract class that hold the methods and data needed for an algorithm and will be inherited by all algorithm classes
 class Algorithm{
@@ -18,9 +19,9 @@ protected:
     //protected data members (accessible by child classes)
     string name; //name of the algorithm to be implemented
     int numOfProcesses; //number of processes to run the implementation on
-    Process* processes; //pointer to the list of processes to be executed in the algorithm
-    //private method
-    void sortByArrivalTime(); //will sort methods by arrival time
+    Process* processes; //pointer to the list of processes to be executed in the algorithm (job queue)
+    list<Event> events; //events for the algorithm
+    int idleTime; //time the cpu not busy (to be updated by the child class - will be dependent on input and alg used)
     
 public:
     //default constructor
