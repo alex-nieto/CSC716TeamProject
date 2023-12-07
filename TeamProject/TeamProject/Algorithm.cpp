@@ -11,20 +11,13 @@ Algorithm :: Algorithm(){
     name = "";
     numOfProcesses = 0;
     processes = NULL;
+    idleTime = 0;
 }
 Algorithm :: Algorithm(string name, int numOfProcesses, Process processes[]){
     this->name = name;
     this->numOfProcesses = numOfProcesses;
     this->processes = processes;
-    sortByArrivalTime();
-}
-void Algorithm :: sortByArrivalTime(){
-//    int tempTime = 0;
-//    for(int i = 0; i < numOfProcesses; i++){
-//        if(processes[i].getArrivalTime() > tempTime){
-//            tempTime = processes[i].getArrivalTime();
-//        }
-//    }
+    idleTime = 0;
 }
 int Algorithm :: calculateTotalTimeExecution(){
     //looping through all processes to find the latest finish time
@@ -38,7 +31,9 @@ int Algorithm :: calculateTotalTimeExecution(){
     return totalExecuteTime;
 }
 int Algorithm :: calculateCPUutilization(){
-    return 0;
+    //busy time/total time
+    int totalTime = calculateTotalTimeExecution();
+    return (totalTime - idleTime) / totalTime;
 }
 void Algorithm :: printAlgorithmInfo(){
     cout << name << ": " << endl;
@@ -53,6 +48,8 @@ void Algorithm :: printProcessInfo(){
     }
 }
 void Algorithm :: printProcessEvents(){
-    //At time X: Process {id} moves from {state} to {state}
-    //new, ready, running, blocked, or terminated
+    events.sort();
+    for(Event event : events){
+        event.printEventInfo();
+    }
 }
