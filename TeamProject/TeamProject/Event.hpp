@@ -30,6 +30,7 @@ public:
     void setOldState(string oldState);
     void setNewState(string newState);
     void setProcess(Process process);
+    void setEvent(int time, Process process, string newState, string oldState);
     //get methods
     int getTime();
     string getOldState();

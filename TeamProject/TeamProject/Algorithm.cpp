@@ -19,6 +19,18 @@ Algorithm :: Algorithm(string name, int numOfProcesses, Process processes[]){
     this->processes = processes;
     idleTime = 0;
 }
+list<Event> Algorithm :: createReadyEvents(){
+    list<Event> readyQueue;
+    //create ready events
+    for(int i = 0; i < numOfProcesses; i++){
+        Event arrivalEvent(processes[i].getArrivalTime(), processes[i], "ready", "new");
+        events.push_back(arrivalEvent);
+        readyQueue.push_back(arrivalEvent);
+    }
+    //sort ready queue (events sort by event time - here will be arrival times)
+    readyQueue.sort();
+    return readyQueue;
+}
 int Algorithm :: calculateTotalTimeExecution(){
     //looping through all processes to find the latest finish time
     int totalExecuteTime = 0;

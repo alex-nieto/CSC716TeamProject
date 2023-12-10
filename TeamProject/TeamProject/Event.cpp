@@ -34,6 +34,12 @@ void Event :: setProcess(Process process){
 int Event :: getTime(){
     return time;
 }
+void Event :: setEvent(int time, Process process, string newState, string oldState){
+    this->time = time;
+    this->oldState = oldState;
+    this->newState = newState;
+    this->process = &process;
+}
 string Event :: getOldState(){
     return oldState;
 }
