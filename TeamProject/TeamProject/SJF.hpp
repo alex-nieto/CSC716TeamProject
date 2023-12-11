@@ -9,7 +9,6 @@
 #define SJF_hpp
 
 #include <stdio.h>
-#include <map>
 #include "Algorithm.hpp"
 
 using namespace std;

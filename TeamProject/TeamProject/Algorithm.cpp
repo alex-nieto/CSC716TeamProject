@@ -28,16 +28,23 @@ Algorithm :: Algorithm(string name, int numOfProcesses, Process processes[], int
     this->switchTime = switchTime;
     idleTime = 0;
 }
-list<Event> Algorithm :: createReadyEvents(){
-    list<Event> readyQueue;
+list<Process> Algorithm :: createReadyQueue(){
+    list<Process> readyQueue;
+    
     //create ready events
     for(int i = 0; i < numOfProcesses; i++){
         Event arrivalEvent(processes[i].getArrivalTime(), processes[i], "ready", "new");
         events.push_back(arrivalEvent);
-        readyQueue.push_back(arrivalEvent);
     }
-    //sort ready queue (events sort by event time - here will be arrival times)
-    readyQueue.sort();
+    //sort ready events (events sort by event time - here will be arrival times since only ready events exist so far)
+    events.sort();
+    
+    //add all processes to ready queue
+    for(Event event: events){
+        readyQueue.push_back(*event.getProcess());
+    }
+    
+    //return ready queue
     return readyQueue;
 }
 int Algorithm :: calculateTotalTimeExecution(){

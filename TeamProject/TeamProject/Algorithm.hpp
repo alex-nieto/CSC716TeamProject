@@ -24,7 +24,7 @@ protected:
     int idleTime; //time the cpu not busy (to be updated by the child class - will be dependent on input and alg used)
     int switchTime;
     //protected methods
-    list<Event> createReadyEvents();
+    list<Process> createReadyQueue(); //creates ready events and ready queue with available processes
     
 public:
     //default constructor

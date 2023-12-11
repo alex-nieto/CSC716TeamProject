@@ -54,11 +54,7 @@ public:
     void printProcessInfo(); //outputs the process information
     //overloaded operator methods
     void operator=(const Process &p); //assign process to process (= operator)
-//    bool operator<(Process &p);
-//    bool operator>(Process &p);
-//    bool operator<=(Process &p);
-//    bool operator>=(Process &p);
-//    bool operator==(Process &p);
+    bool operator==(const Process &p) const; //check if process is equal to another process
 };
 
 #endif /* Process_hpp */
