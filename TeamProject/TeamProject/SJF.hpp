@@ -9,6 +9,7 @@
 #define SJF_hpp
 
 #include <stdio.h>
+#include <map>
 #include "Algorithm.hpp"
 
 using namespace std;
@@ -19,9 +20,6 @@ class SJF : public Algorithm{
 private:
     //private data members
     bool pre_emptive; //whether the algorithm is pre-emptive or not (Shortest Job First or Shortest Remaining Time Next)
-    //private methods
-    void preEmptiveImplementation(); //the pre-emptive implementation
-    void nonPreEmptiveImplememtation(); //the non pre-emptive implementation
     
 public:
     //public methods
