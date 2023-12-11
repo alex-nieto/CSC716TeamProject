@@ -56,7 +56,7 @@ void SJF :: implementAlg(){
             clockTime = readyQueue.front().getArrivalTime();
         }else{
             //sort processes by service/burst time
-            allProcessesArrived.sort([](Event &a, Event &b) { return a.getProcess()->getServiceTime() < b.getProcess()->getServiceTime(); });
+            allProcessesArrived.sort([](Process &a, Process &b) { return a.getServiceTime() < b.getServiceTime(); });
             //sets next process to execute
             nextReadyProcess = allProcessesArrived.front();
             for(int i = 0; i < numOfProcesses; i++){
