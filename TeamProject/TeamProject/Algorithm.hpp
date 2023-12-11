@@ -29,7 +29,8 @@ protected:
 public:
     //default constructor
     Algorithm();
-    //constructor initializer
+    //constructor initializers
+    Algorithm(string name, int numOfProcesses, Process processes[]);
     Algorithm(string name, int numOfProcesses, Process processes[], int switchTime);
     //virtual implementAlg method which will be implemented by child classes
     virtual void implementAlg() = 0;

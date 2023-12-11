@@ -14,6 +14,13 @@ Algorithm :: Algorithm(){
     switchTime = 0;
     idleTime = 0;
 }
+Algorithm :: Algorithm(string name, int numOfProcesses, Process processes[]){
+    this->name = name;
+    this->numOfProcesses = numOfProcesses;
+    this->processes = processes;
+    this->switchTime = 1;
+    idleTime = 0;
+}
 Algorithm :: Algorithm(string name, int numOfProcesses, Process processes[], int switchTime){
     this->name = name;
     this->numOfProcesses = numOfProcesses;
