@@ -41,7 +41,7 @@ list<Process> Algorithm :: createReadyQueue(){
     
     //add all processes to ready queue
     for(Event event: events){
-        readyQueue.push_back(*event.getProcess());
+        readyQueue.push_back(event.getProcess());
     }
     
     //return ready queue
@@ -71,8 +71,9 @@ void Algorithm :: printAlgorithmInfo(){
 void Algorithm :: printProcessInfo(){
     //loop through all the processes and print details
     for(int i = 0; i < numOfProcesses; i++){
-        cout << "Process " << i << ": " << endl;
+        cout << "Process " << i+1 << ": " << endl;
         processes[i].printProcessInfo();
+        cout << endl;
     }
 }
 void Algorithm :: printProcessEvents(){

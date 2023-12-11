@@ -18,7 +18,7 @@ private:
     int time; //time the event took place
     string oldState; //prevous state of the process                                            //Possible states: new, ready, running, blocked/waiting, or terminated
     string newState; //new state of the process                                                //if new state, old state will be null
-    Process* process; //pointer to the process this event is referring to
+    Process process; //pointer to the process this event is referring to
     
 public:
     //default constructor
@@ -35,7 +35,7 @@ public:
     int getTime();
     string getOldState();
     string getNewState();
-    Process* getProcess();
+    Process getProcess();
     //print methods
     void printEventInfo(); //outputs the event info (At time X: Process {id} moves from {state} to {state})
     //overloaded operator methods

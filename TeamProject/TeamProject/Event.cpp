@@ -11,13 +11,13 @@ Event :: Event(){
     time = 0;
     oldState = "";
     newState = "";
-    process = NULL;
+    process = *(new Process());
 }
 Event :: Event(int time, Process process, string newState, string oldState){
     this->time = time;
     this->oldState = oldState;
     this->newState = newState;
-    this->process = &process;
+    this->process = process;
 }
 void Event :: setTime(int time){
     this->time = time;
@@ -29,7 +29,7 @@ void Event :: setNewState(string newState){
     this->newState = newState;
 }
 void Event :: setProcess(Process process){
-    this->process = &process;
+    this->process = process;
 }
 int Event :: getTime(){
     return time;
@@ -38,7 +38,7 @@ void Event :: setEvent(int time, Process process, string newState, string oldSta
     this->time = time;
     this->oldState = oldState;
     this->newState = newState;
-    this->process = &process;
+    this->process = process;
 }
 string Event :: getOldState(){
     return oldState;
@@ -46,11 +46,11 @@ string Event :: getOldState(){
 string Event :: getNewState(){
     return newState;
 }
-Process* Event :: getProcess(){
+Process Event :: getProcess(){
     return process;
 }
 void Event :: printEventInfo(){
-    cout << "At time " << time << ": Process " << process->getProcessId() << "moves from " << oldState << " to " << newState << endl;
+    cout << "At time " << time << ": P" << process.getProcessId() << " moves from " << oldState << " to " << newState << endl;
 }
 void Event :: operator=(const Event &event){
     this->time = event.time;

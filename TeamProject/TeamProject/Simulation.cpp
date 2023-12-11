@@ -82,9 +82,10 @@ void Simulation :: runAlgorithm(Algorithm** algorithToRun, int arrSize){
     }
 }
 void Simulation :: runSelectAlgorithm(){
+    int switchTime = 1;
     if(!readParameterInput()){
         int arrSize = 6;
-        Algorithm* algorithToRun[6]{new FCFS(numOfProcesses,processes),new SJF(numOfProcesses,processes),new SJF(1,numOfProcesses,processes),
+        Algorithm* algorithToRun[6]{new FCFS(numOfProcesses,processes),new SJF(numOfProcesses,processes,switchTime),new SJF(1,numOfProcesses,processes,switchTime),
             new RR(10,numOfProcesses,processes),new RR(50,numOfProcesses,processes), new RR(100,numOfProcesses,processes)};
         if(algToImplement != ""){
             arrSize = 1;

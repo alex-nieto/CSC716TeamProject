@@ -13,16 +13,17 @@ const string SRTNname = "Shortest Remaining Time Next";
 SJF :: SJF() : Algorithm(){
     pre_emptive = 0;
 }
-SJF :: SJF(int numOfProcesses, Process processes[]) : Algorithm(SJFname, numOfProcesses, processes){
+SJF :: SJF(int numOfProcesses, Process processes[], int switchTime) : Algorithm(SJFname, numOfProcesses, processes, switchTime){
     this->pre_emptive = 0;
 }
-SJF :: SJF(bool pre_emptive, int numOfProcesses, Process processes[]) : Algorithm(pre_emptive ? SRTNname : SJFname, numOfProcesses, processes){
+SJF :: SJF(bool pre_emptive, int numOfProcesses, Process processes[], int switchTime) : Algorithm(pre_emptive ? SRTNname : SJFname, numOfProcesses, processes, switchTime){
     this->pre_emptive = pre_emptive;
 }
 void SJF :: implementAlg(){
     
     //set clock start time
     int clockTime = 0;
+    
     //ready and wait queues
     list<Process> readyQueue;
     list<Event> waitingQueue;
@@ -62,6 +63,9 @@ void SJF :: implementAlg(){
             for(int i = 0; i < numOfProcesses; i++){
                 if(nextReadyProcess.getProcessId() == processes[i].getProcessId()){
                     processes[i].setStartTime(clockTime);
+//                    cout << "DEBUG: after we set start time: " << endl;
+//                    printProcessInfo();
+                    cout << endl;
                 }
             }
             //clear list for next round

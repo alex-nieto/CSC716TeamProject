@@ -47,7 +47,7 @@ public:
     int getStartTime();
     //calculation methods
     int calculateFinishTime(); //calculates the time the processes finishes executing
-    int calculateTurnAroundTime(); //calculates the turn around time for the process
+    int calculateTurnAroundTime(); //calculates the turn around time for the process (total time spent in the system)
     int calculateNormalizedTAT(); //calculates the normaized turn around time for the process
     int calculateWaitTime(); //calculates the wait time for the process
     //print method
