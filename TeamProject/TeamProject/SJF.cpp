@@ -19,19 +19,6 @@ SJF :: SJF(int numOfProcesses, Process processes[]) : Algorithm(SJFname, numOfPr
 SJF :: SJF(bool pre_emptive, int numOfProcesses, Process processes[]) : Algorithm(pre_emptive ? SRTNname : SJFname, numOfProcesses, processes){
     this->pre_emptive = pre_emptive;
 }
-void SJF :: sortByServiceTime(list<Process> &processesArrived){
-    map<int,int> temp;
-    list<Process> tempList = processesArrived;
-    tempList.reverse();
-    for(Process process : processesArrived){
-        for(Process tempProcess : tempList){
-            if(process.getServiceTime() < tempProcess.getServiceTime()){
-                
-            }
-        }
-        temp[process.getProcessId()] = process.getServiceTime();
-    }
-}
 void SJF :: implementAlg(){
 //    if(!pre_emptive){
 //        preEmptiveImplementation();
