@@ -63,9 +63,6 @@ void SJF :: implementAlg(){
             for(int i = 0; i < numOfProcesses; i++){
                 if(nextReadyProcess.getProcessId() == processes[i].getProcessId()){
                     processes[i].setStartTime(clockTime);
-//                    cout << "DEBUG: after we set start time: " << endl;
-//                    printProcessInfo();
-                    cout << endl;
                 }
             }
             //clear list for next round
