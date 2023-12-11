@@ -22,6 +22,7 @@ protected:
     Process* processes; //pointer to the list of processes to be executed in the algorithm (job queue)
     list<Event> events; //events for the algorithm
     int idleTime; //time the cpu not busy (to be updated by the child class - will be dependent on input and alg used)
+    int switchTime;
     //protected methods
     list<Event> createReadyEvents();
     
@@ -29,7 +30,7 @@ public:
     //default constructor
     Algorithm();
     //constructor initializer
-    Algorithm(string name, int numOfProcesses, Process processes[]);
+    Algorithm(string name, int numOfProcesses, Process processes[], int switchTime);
     //virtual implementAlg method which will be implemented by child classes
     virtual void implementAlg() = 0;
     //calculation methods

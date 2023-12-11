@@ -11,12 +11,14 @@ Algorithm :: Algorithm(){
     name = "";
     numOfProcesses = 0;
     processes = NULL;
+    switchTime = 0;
     idleTime = 0;
 }
-Algorithm :: Algorithm(string name, int numOfProcesses, Process processes[]){
+Algorithm :: Algorithm(string name, int numOfProcesses, Process processes[], int switchTime){
     this->name = name;
     this->numOfProcesses = numOfProcesses;
     this->processes = processes;
+    this->switchTime = switchTime;
     idleTime = 0;
 }
 list<Event> Algorithm :: createReadyEvents(){
