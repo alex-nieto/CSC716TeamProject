@@ -16,24 +16,24 @@ Process :: Process(){
 }
 Process :: Process(int processId, int serviceTime){
     this->processId = processId;
-    arrivalTime = 0;
+    this->arrivalTime = 0;
     this->serviceTime = serviceTime;
-    priority = 0;
-    startTime = 0;
+    this->priority = 0;
+    this->startTime = 0;
 }
 Process :: Process(int processId, int arrivalTime, int serviceTime){
     this->processId = processId;
     this->arrivalTime = arrivalTime;
     this->serviceTime = serviceTime;
-    priority = 0;
-    startTime = 0;
+    this->priority = 0;
+    this->startTime = 0;
 }
 Process :: Process(int processId, int arrivalTime, int serviceTime, int priority){
     this->processId = processId;
     this->arrivalTime = arrivalTime;
     this->serviceTime = serviceTime;
     this->priority = priority;
-    startTime = 0;
+    this->startTime = 0;
 }
 Process :: Process(int processId, int arrivalTime, int serviceTime, int priority, int startTime){
     this->processId = processId;
@@ -70,7 +70,7 @@ int Process :: calculateFinishTime(){
     return startTime + serviceTime;
 }
 int Process :: calculateTurnAroundTime(){
-    return serviceTime + arrivalTime;
+    return calculateFinishTime() - arrivalTime;
 }
 int Process :: calculateNormalizedTAT(){
     return calculateTurnAroundTime()/serviceTime;
@@ -79,11 +79,11 @@ int Process :: calculateWaitTime(){
     return calculateFinishTime() - arrivalTime;
 }
 void Process :: printProcessInfo(){
-    cout << "Arrival Time: " << arrivalTime << "time units" << endl;
-    cout << "Service Time: " << serviceTime << "time units" << endl;
-    cout << "I/O Time: " << "time units" << endl;
-    cout << "Turnaround Time: " << calculateTurnAroundTime() << "time units" << endl;
-    cout << "Finish Time: " << calculateFinishTime() << "time units" << endl;
+    cout << "Arrival Time: " << this->arrivalTime << " time units" << endl;
+    cout << "Service Time: " << this->serviceTime << " time units" << endl;
+    cout << "I/O Time: " << " time units" << endl;
+    cout << "Turnaround Time: " << calculateTurnAroundTime() << " time units" << endl;
+    cout << "Finish Time: " << calculateFinishTime() << " time units" << endl;
 }
 void Process :: operator=(const Process &p){
     this->processId = p.processId;
