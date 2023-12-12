@@ -13,7 +13,7 @@ Simulation :: Simulation(){
     verbose = false;
     algToImplement = " ";
     numOfProcesses = 0;
-    Process* processes = NULL;
+    switchTime = -1;
 }
 Simulation :: Simulation(string input){
     this->input = input;
@@ -21,7 +21,7 @@ Simulation :: Simulation(string input){
     verbose = false;
     algToImplement = "";
     numOfProcesses = 0;
-    Process* processes = NULL;
+    switchTime = -1;
 }
 bool Simulation :: readFile(){
     string filePath = input.substr(input.find("<") + 1);
@@ -32,14 +32,76 @@ bool Simulation :: readFile(){
         return true;
     }
     // open the file for reading
-    filePath = "/Users/acnieto/Library/CloudStorage/OneDrive-AmericanExpress/Desktop/in.txt";
+    filePath = "/Users/alexnieto/Desktop/testInputFile.txt";
     ifstream inputFile(filePath);
-    if (inputFile.is_open()){
+    if(inputFile.is_open()){
         // read Simulation from the file
         string simulationData;
+        queue<string> parameterlist;
+        string segment;
+        int ioTime = 0;
+        int serviceTime = 0;
+        Process *processPtr = NULL;
+        int count = 0;
         while (getline(inputFile, simulationData)){
-            // process the Simulation
-            cout << simulationData << endl;
+            stringstream parameterInput(simulationData.substr(0, simulationData.find("\n")));
+            while(getline(parameterInput, segment, ' '))
+            {
+                parameterlist.push(segment);
+            }
+            if(parameterlist.size() == 2 && numOfProcesses == 0){
+                numOfProcesses = stoi(parameterlist.front());
+                cout << "numOfProcesses: " << numOfProcesses << endl;
+                parameterlist.pop();
+                switchTime = stoi(parameterlist.front());
+                cout << "switchTime: " << switchTime << endl;
+                parameterlist.pop();
+            }else{
+                if(parameterlist.size() == 3){
+                    if(count == 0){
+                        Process p;
+                        processPtr = &p;
+                    }
+                    if(processPtr->getProcessId() == 0){
+                        processPtr->setProcessId(stoi(parameterlist.front()));
+                        parameterlist.pop();
+                        processPtr->setArrivalTime(stoi(parameterlist.front()));
+                        parameterlist.pop();
+                        count = stoi(parameterlist.front());
+                        cout << "initial count: " << count << endl;
+                    }else{
+                        count--;
+                        cout << "else count: " << count << endl;
+                        parameterlist.pop();
+                        serviceTime+=stoi(parameterlist.front());
+                        cout << "else serviceTime: " << serviceTime << endl;
+                        parameterlist.pop();
+                        ioTime+=stoi(parameterlist.front());
+                        cout << "else ioTime: " << ioTime << endl;
+                    }
+                    parameterlist.pop();
+                }else if(parameterlist.size() == 2){
+                    count--;
+                    cout << "else if count: " << count << endl;
+                    parameterlist.pop();
+                    serviceTime+=stoi(parameterlist.front());
+                    cout << "else if serviceTime: " << serviceTime << endl;
+                    parameterlist.pop();
+                }
+                if(count == 0){
+                    cout << "*serviceTime: " << serviceTime << endl;
+                    cout << "*ioTime: " << ioTime << endl;
+                    processPtr->setServiceTime(serviceTime);
+                    processPtr->setIOtime(ioTime);
+                    processList.push_back(*processPtr);
+                    cout  << "PId: " << processList.back().getProcessId() << endl;
+                    cout  << "PAt: " << processList.back().getArrivalTime() << endl;
+                    cout  << "PSt " << processList.back().getServiceTime() << endl;
+                    cout  << "PIo " << processList.back().getIOtime() << endl;
+                    ioTime = 0;
+                    serviceTime = 0;
+                }
+            }
         }
         // close the file
         inputFile.close();
@@ -81,12 +143,20 @@ void Simulation :: runAlgorithm(Algorithm** algorithToRun, int arrSize){
         cout << endl;
     }
 }
+Process* Simulation :: copyProcessListToArr(){
+    Process newProcessArr[numOfProcesses];
+    int i = 0;
+    for(Process process : processList){
+        newProcessArr[i] = process;
+        i++;
+    }
+    return newProcessArr;
+}
 void Simulation :: runSelectAlgorithm(){
-    int switchTime = 1;
     if(!readParameterInput()){
         int arrSize = 6;
-        Algorithm* algorithToRun[6]{new FCFS(numOfProcesses,processes),new SJF(numOfProcesses,processes,switchTime),new SJF(1,numOfProcesses,processes,switchTime),
-            new RR(10,numOfProcesses,processes),new RR(50,numOfProcesses,processes), new RR(100,numOfProcesses,processes)};
+        Algorithm* algorithToRun[6]{new FCFS(numOfProcesses,copyProcessListToArr()),new SJF(numOfProcesses,copyProcessListToArr(),switchTime),new SJF(1,numOfProcesses,copyProcessListToArr(),switchTime),
+            new RR(10,numOfProcesses,copyProcessListToArr()),new RR(50,numOfProcesses,copyProcessListToArr()), new RR(100,numOfProcesses,copyProcessListToArr())};
         if(algToImplement != ""){
             arrSize = 1;
             if(algToImplement == "FCFS "){
@@ -114,6 +184,7 @@ bool Simulation :: execute(){
         if(!input.find("sim")){
             if(!readFile())
                 runSelectAlgorithm();
+                //cout << "Compute Somthing" << endl;
         }else{
             cout << "Need to use sim command. Please try again." << endl;
         }

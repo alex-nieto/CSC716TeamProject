@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <sstream>
+#include <queue>
 #include "FCFS.hpp"
 #include "SJF.hpp"
 #include "RR.hpp"
@@ -25,12 +26,14 @@ private:
     bool verbose; //indicate whether they included -v parameter (only used and accessed by the Simulation class)
     string algToImplement; //will hold the algorithm abreviation chosen if any (FCFS, SJF, SRTN, RR10, RR50, RR100)
     int numOfProcesses; //number of processes indicated by the file
-    Process* processes; //processes created from file information
+    int switchTime;
+    list<Process> processList; //processes created from file information
     //private methods
     bool readFile(); //reads file information and create the process list
     bool readParameterInput(); //reads which parameters were included and updates related Simulation members
     void runAlgorithm(Algorithm** algorithToRun, int size); //implements a list of algorithms and outputs/prints results
     void runSelectAlgorithm(); //runs the selected algorithm and outputs/prints results
+    Process* copyProcessListToArr();
     
 public:
     //public methods
