@@ -2,39 +2,23 @@
 //  FCFS.cpp
 //  TeamProject
 //
-//  Created by Alex C Nieto on 12/5/23.
+//  Created by Rifat Abuelenin on 12/12/23.
 //
 
 #include "FCFS.hpp"
-
-const string FCFSname = "First Come First Serve";
-
-FCFS :: FCFS(){
-    
-}
-FCFS :: FCFS(int numOfProcesses, Process processes[]) : Algorithm(FCFSname, numOfProcesses, processes){
-    
-}
-void FCFS :: implementAlg(){
-
-    //
-//  FCFS.cpp
-//  TeamProject
-//
-//  Created by Alex C Nieto on 12/5/23.
-//
-
 #include "FCFS.hpp"
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <queue>
 
-
 const string FCFSname = "First Come First Serve";
 
-FCFS::FCFS() {
-    class EventQueue {
+FCFS :: FCFS(){
+
+     class EventQueue { // EventQueue class in the provided code  is designed to manage a priority queue  
+    //the EventQueue class manages a queue of events, ensuring that they are processed in a specific order (as determined by the priority queue's ordering). 
+    //This is a common structure in systems where events occur at different times or need to be processed in a specific sequence, such as in simulations, operating system schedulers, or event-driven programming models.
     private:
         std::priority_queue<Event> queue;
 
@@ -63,6 +47,24 @@ FCFS::FCFS() {
         Process* processes;
 
     }
+    
+}
+FCFS :: FCFS(int numOfProcesses, Process processes[]) : Algorithm(FCFSname, numOfProcesses, processes){
+    
+}
+void FCFS :: implementAlg(){
+
+    //
+//  FCFS.cpp
+//  TeamProject
+//
+//  Created by Rifat Abuelenin on 12/12/23.
+//
+
+
+
+FCFS::FCFS() {
+   
     FCFS::FCFS(int numOfProcesses, Process processes[]) : Algorithm(FCFSname, numOfProcesses, processes) {
 
     }
@@ -126,3 +128,5 @@ FCFS::FCFS() {
 
     
 }
+
+ 
