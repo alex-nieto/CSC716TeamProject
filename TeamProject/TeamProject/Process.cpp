@@ -9,7 +9,7 @@
 
 Process :: Process(){
     processId = 0;
-    arrivalTime = 0;
+    arrivalTime = -1;
     serviceTime = 0;
     ioTime = 0;
     priority = 0;
@@ -100,7 +100,7 @@ int Process :: calculateNormalizedTAT(){
 int Process :: calculateWaitTime(){
     return finishTime - arrivalTime;
 }
-void Process :: printProcessInfo(string algoName){
+void Process :: printProcessInfo(){
     cout << "Arrival Time: " << this->arrivalTime << " time units" << endl;
     cout << "Service Time: " << this->serviceTime << " time units" << endl;
     cout << "I/O Time: " << this->ioTime << " time units" << endl;

@@ -52,12 +52,12 @@ public:
     int getStartTime();
     int getFinishTime();
     //calculation methods
-    int calculateFinishTime(); //calculates the time the processes finishes executing (if straight through execution from start time)
+    int calculateFinishTime(); //calculates the time the processes finishes executing (straight through execution from start time)
     int calculateTurnAroundTime(); //calculates the turn around time for the process (total time spent in the system)
     int calculateNormalizedTAT(); //calculates the normaized turn around time for the process
     int calculateWaitTime(); //calculates the wait time for the process
     //print method
-    void printProcessInfo(string algoName); //outputs the process information
+    void printProcessInfo(); //outputs the process information
     //overloaded operator methods
     void operator=(const Process &p); //assign process to process (= operator)
     bool operator==(const Process &p) const; //check if process is equal to another process
