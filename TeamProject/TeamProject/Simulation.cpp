@@ -25,13 +25,12 @@ Simulation :: Simulation(string input){
 }
 bool Simulation :: readFile(){
     string filePath = input.substr(input.find("<") + 1);
-    erase(filePath, ' ');
     if(filePath == "" || filePath == " " || filePath == input){
         cout << "No file path indicated. Please try again." << endl;
         return true;
     }
     //open the file for reading
-    filePath = "/Users/alexnieto/Desktop/inputFile.txt";
+    filePath = "input.txt";
     ifstream inputFile(filePath);
     if(inputFile.is_open()){
         //temp variables
@@ -136,7 +135,7 @@ void Simulation :: runAlgorithm(Algorithm** algorithToRun, int arrSize){
     }
 }
 Process* Simulation :: copyProcessListToArr(){
-    Process newProcessArr[numOfProcesses];
+    Process* newProcessArr = new Process[numOfProcesses];
     int i = 0;
     for(Process process : processList){
         newProcessArr[i] = process;

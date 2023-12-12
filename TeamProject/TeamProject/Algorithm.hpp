@@ -39,7 +39,7 @@ public:
     int calculateCPUutilization(); //calculates the cpu utilization for the algorithm
     //print methods
     void printAlgorithmInfo(); //outputs the algorithm info
-    void printProcessInfo(); //outputs the info for each process in the algorithm
+    virtual void printProcessInfo(); //outputs the info for each process in the algorithm
     void printProcessEvents(); //outputs the events of each process (At time X: Process {id} moves from {state} to {state})
 };
 
