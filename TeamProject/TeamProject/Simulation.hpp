@@ -33,7 +33,7 @@ private:
     bool readParameterInput(); //reads which parameters were included and updates related Simulation members
     void runAlgorithm(Algorithm** algorithToRun, int size); //implements a list of algorithms and outputs/prints results
     void runSelectAlgorithm(); //runs the selected algorithm and outputs/prints results
-    Process* copyProcessListToArr();
+    Process* copyProcessListToArr(); //copies list of processes into an array
     
 public:
     //public methods

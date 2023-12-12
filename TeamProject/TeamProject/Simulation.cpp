@@ -25,79 +25,71 @@ Simulation :: Simulation(string input){
 }
 bool Simulation :: readFile(){
     string filePath = input.substr(input.find("<") + 1);
-    cout << input << endl;
-    cout << "file path: " << filePath << endl;
+    erase(filePath, ' ');
     if(filePath == "" || filePath == " " || filePath == input){
         cout << "No file path indicated. Please try again." << endl;
         return true;
     }
-    // open the file for reading
-    filePath = "/Users/alexnieto/Desktop/testInputFile.txt";
+    //open the file for reading
+    filePath = "/Users/alexnieto/Desktop/inputFile.txt";
     ifstream inputFile(filePath);
     if(inputFile.is_open()){
-        // read Simulation from the file
+        //temp variables
         string simulationData;
         queue<string> parameterlist;
         string segment;
         int ioTime = 0;
         int serviceTime = 0;
         Process *processPtr = NULL;
+        //count will keep track of the line of cpu time and io time
         int count = 0;
+        //getting each line
         while (getline(inputFile, simulationData)){
+            //geting each input of the line
             stringstream parameterInput(simulationData.substr(0, simulationData.find("\n")));
             while(getline(parameterInput, segment, ' '))
             {
                 parameterlist.push(segment);
             }
+            //checking for first line
             if(parameterlist.size() == 2 && numOfProcesses == 0){
                 numOfProcesses = stoi(parameterlist.front());
-                cout << "numOfProcesses: " << numOfProcesses << endl;
                 parameterlist.pop();
                 switchTime = stoi(parameterlist.front());
-                cout << "switchTime: " << switchTime << endl;
                 parameterlist.pop();
             }else{
+                //otherwise we check for next line(s)
                 if(parameterlist.size() == 3){
                     if(count == 0){
                         Process p;
                         processPtr = &p;
                     }
+                    //check for process
                     if(processPtr->getProcessId() == 0){
                         processPtr->setProcessId(stoi(parameterlist.front()));
                         parameterlist.pop();
                         processPtr->setArrivalTime(stoi(parameterlist.front()));
                         parameterlist.pop();
                         count = stoi(parameterlist.front());
-                        cout << "initial count: " << count << endl;
                     }else{
                         count--;
-                        cout << "else count: " << count << endl;
                         parameterlist.pop();
                         serviceTime+=stoi(parameterlist.front());
-                        cout << "else serviceTime: " << serviceTime << endl;
                         parameterlist.pop();
                         ioTime+=stoi(parameterlist.front());
-                        cout << "else ioTime: " << ioTime << endl;
                     }
                     parameterlist.pop();
                 }else if(parameterlist.size() == 2){
                     count--;
-                    cout << "else if count: " << count << endl;
                     parameterlist.pop();
                     serviceTime+=stoi(parameterlist.front());
-                    cout << "else if serviceTime: " << serviceTime << endl;
                     parameterlist.pop();
                 }
+                //if hit count, then save process to list
                 if(count == 0){
-                    cout << "*serviceTime: " << serviceTime << endl;
-                    cout << "*ioTime: " << ioTime << endl;
                     processPtr->setServiceTime(serviceTime);
                     processPtr->setIOtime(ioTime);
                     processList.push_back(*processPtr);
-                    cout  << "PId: " << processList.back().getProcessId() << endl;
-                    cout  << "PAt: " << processList.back().getArrivalTime() << endl;
-                    cout  << "PSt " << processList.back().getServiceTime() << endl;
-                    cout  << "PIo " << processList.back().getIOtime() << endl;
                     ioTime = 0;
                     serviceTime = 0;
                 }
@@ -184,7 +176,6 @@ bool Simulation :: execute(){
         if(!input.find("sim")){
             if(!readFile())
                 runSelectAlgorithm();
-                //cout << "Compute Somthing" << endl;
         }else{
             cout << "Need to use sim command. Please try again." << endl;
         }
