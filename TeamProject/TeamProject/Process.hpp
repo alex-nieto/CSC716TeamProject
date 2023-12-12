@@ -21,6 +21,7 @@ private:
     int processId; //process Id
     int arrivalTime; //arrival time of the process
     int serviceTime; //how long the process will execute for
+    int ioTime; //how long the process will use io device
     int priority; //the priority of the process against other processes
     int startTime; //the time at which the process starts to execute
     
@@ -30,19 +31,21 @@ public:
     Process();
     //constructor initializers
     Process(int processId, int serviceTime);
-    Process(int processId, int arrivalTime, int serviceTime);
-    Process(int processId, int arrivalTime, int serviceTime, int priority);
-    Process(int processId, int arrivalTime, int serviceTime, int priority, int startTime);
+    Process(int processId, int arrivalTime, int serviceTime, int ioTime);
+    Process(int processId, int arrivalTime, int serviceTime, int ioTime, int priority);
+    Process(int processId, int arrivalTime, int serviceTime, int ioTime, int priority, int startTime);
     //set methods
     void setProcessId(int processId);
     void setArrivalTime(int arrivalTime);
     void setServiceTime(int serviceTime);
+    void setIOtime(int ioTime);
     void setPriority(int priority);
     void setStartTime(int startTime);
     //get methods
     int getProcessId();
     int getArrivalTime();
     int getServiceTime();
+    int getIOtime();
     int getPriority();
     int getStartTime();
     //calculation methods
