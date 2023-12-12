@@ -14,6 +14,8 @@ Process :: Process(){
     ioTime = 0;
     priority = 0;
     startTime = 0;
+    finishTime = 0;
+    started = false;
 }
 Process :: Process(int processId, int serviceTime){
     this->processId = processId;
@@ -22,6 +24,8 @@ Process :: Process(int processId, int serviceTime){
     this->ioTime = 0;
     this->priority = 0;
     this->startTime = 0;
+    this->finishTime = 0;
+    this->started = false;
 }
 Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime){
     this->processId = processId;
@@ -30,6 +34,8 @@ Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime){
     this->ioTime = ioTime;
     this->priority = 0;
     this->startTime = 0;
+    this->finishTime = 0;
+    this->started = false;
 }
 Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime, int priority){
     this->processId = processId;
@@ -38,6 +44,8 @@ Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime, 
     this->ioTime = ioTime;
     this->priority = priority;
     this->startTime = 0;
+    this->finishTime = 0;
+    this->started = false;
 }
 Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime, int priority, int startTime){
     this->processId = processId;
@@ -46,6 +54,8 @@ Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime, 
     this->ioTime = ioTime;
     this->priority = priority;
     this->startTime = startTime;
+    this->finishTime = 0;
+    this->started = false;
 }
 void Process :: setProcessId(int processId){
     this->processId = processId;
@@ -62,6 +72,12 @@ void Process :: setIOtime(int ioTime){
 void Process :: setStartTime(int startTime){
     this->startTime = startTime;
 }
+void Process :: setFinishTime(int finishTime){
+    this->finishTime = finishTime;
+}
+void Process :: setStarted(bool started){
+    this->started = started;
+}
 int Process :: getProcessId(){
     return processId;
 }
@@ -76,6 +92,12 @@ int Process :: getIOtime(){
 }
 int Process :: getStartTime(){
     return startTime;
+}
+int Process :: getFinishTime(){
+    return finishTime;
+}
+bool Process :: getStarted(){
+    return started;
 }
 int Process :: calculateFinishTime(){
     return startTime + serviceTime;

@@ -25,7 +25,7 @@ private:
     int priority; //the priority of the process against other processes
     int startTime; //the time at which the process starts to execute
     int finishTime; //the time at which the process finishes executing
-    bool startTimeSet;
+    bool started; //if started in system is added
     
 public:
     //public methods
@@ -44,6 +44,7 @@ public:
     void setPriority(int priority);
     void setStartTime(int startTime);
     void setFinishTime(int finishTime);
+    void setStarted(bool started);
     //get methods
     int getProcessId();
     int getArrivalTime();
@@ -52,6 +53,7 @@ public:
     int getPriority();
     int getStartTime();
     int getFinishTime();
+    bool getStarted();
     //calculation methods
     int calculateFinishTime(); //calculates the time the processes finishes executing (if straight through execution from start time)
     int calculateTurnAroundTime(); //calculates the turn around time for the process (total time spent in the system)
