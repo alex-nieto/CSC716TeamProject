@@ -72,7 +72,7 @@ void Algorithm :: printProcessInfo(){
     //loop through all the processes and print details
     for(int i = 0; i < numOfProcesses; i++){
         cout << "Process " << i+1 << ": " << endl;
-        processes[i].printProcessInfo();
+        processes[i].printProcessInfo(name);
         cout << endl;
     }
 }

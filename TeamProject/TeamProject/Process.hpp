@@ -24,6 +24,8 @@ private:
     int ioTime; //how long the process will use io device
     int priority; //the priority of the process against other processes
     int startTime; //the time at which the process starts to execute
+    int finishTime; //the time at which the process finishes executing
+    bool startTimeSet;
     
 public:
     //public methods
@@ -41,6 +43,7 @@ public:
     void setIOtime(int ioTime);
     void setPriority(int priority);
     void setStartTime(int startTime);
+    void setFinishTime(int finishTime);
     //get methods
     int getProcessId();
     int getArrivalTime();
@@ -48,13 +51,14 @@ public:
     int getIOtime();
     int getPriority();
     int getStartTime();
+    int getFinishTime();
     //calculation methods
-    int calculateFinishTime(); //calculates the time the processes finishes executing
+    int calculateFinishTime(); //calculates the time the processes finishes executing (if straight through execution from start time)
     int calculateTurnAroundTime(); //calculates the turn around time for the process (total time spent in the system)
     int calculateNormalizedTAT(); //calculates the normaized turn around time for the process
     int calculateWaitTime(); //calculates the wait time for the process
     //print method
-    void printProcessInfo(); //outputs the process information
+    void printProcessInfo(string algoName); //outputs the process information
     //overloaded operator methods
     void operator=(const Process &p); //assign process to process (= operator)
     bool operator==(const Process &p) const; //check if process is equal to another process

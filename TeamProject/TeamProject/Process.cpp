@@ -89,13 +89,13 @@ int Process :: calculateNormalizedTAT(){
 int Process :: calculateWaitTime(){
     return calculateFinishTime() - arrivalTime;
 }
-void Process :: printProcessInfo(){
+void Process :: printProcessInfo(string algoName){
     cout << "Arrival Time: " << this->arrivalTime << " time units" << endl;
     cout << "Service Time: " << this->serviceTime << " time units" << endl;
     cout << "I/O Time: " << this->ioTime << " time units" << endl;
     cout << "Turnaround Time: " << calculateTurnAroundTime() << " time units" << endl;
     cout << "Start Time: " << this->startTime << " time units" << endl;
-    cout << "Finish Time: " << calculateFinishTime() << " time units" << endl;
+    cout << "Finish Time: " << (algoName == "FCFS" && algoName == "SJF" ? calculateFinishTime() : finishTime) << " time units" << endl;
 }
 void Process :: operator=(const Process &p){
     this->processId = p.processId;
