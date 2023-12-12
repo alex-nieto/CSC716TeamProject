@@ -106,9 +106,5 @@ void Process :: operator=(const Process &p){
     this->startTime = p.startTime;
 }
 bool Process :: operator==(const Process &p) const{
-    return this->processId == p.processId
-            && this->arrivalTime == p.arrivalTime
-            && this->serviceTime == p.serviceTime
-            && this->ioTime == p.ioTime
-            && this->priority == p.priority;
+    return this->processId == p.processId;
 }
