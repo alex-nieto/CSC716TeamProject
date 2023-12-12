@@ -14,6 +14,7 @@
 		957589562B1EE74800AB87A4 /* FCFS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 957589542B1EE74800AB87A4 /* FCFS.cpp */; };
 		957589592B1EE76100AB87A4 /* RR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 957589572B1EE76100AB87A4 /* RR.cpp */; };
 		95ACCFE52B1540FA00A36572 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95ACCFE42B1540FA00A36572 /* main.cpp */; };
+		AD5FD7082B25B7A800EBFCD7 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD5FD7072B25B7A700EBFCD7 /* Event.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,8 @@
 		957589582B1EE76100AB87A4 /* RR.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RR.hpp; sourceTree = "<group>"; };
 		95ACCFE12B1540FA00A36572 /* TeamProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TeamProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		95ACCFE42B1540FA00A36572 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		AD5FD7062B25B79700EBFCD7 /* Event.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
+		AD5FD7072B25B7A700EBFCD7 /* Event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,13 +80,15 @@
 			children = (
 				95ACCFE42B1540FA00A36572 /* main.cpp */,
 				9575894B2B1E834A00AB87A4 /* Algorithm.cpp */,
+				AD5FD7072B25B7A700EBFCD7 /* Event.cpp */,
 				957589542B1EE74800AB87A4 /* FCFS.cpp */,
 				957589482B1AC68200AB87A4 /* Process.cpp */,
 				957589572B1EE76100AB87A4 /* RR.cpp */,
 				957589512B1EC56300AB87A4 /* Simulation.cpp */,
 				9575894E2B1E931800AB87A4 /* SJF.cpp */,
-				957589552B1EE74800AB87A4 /* FCFS.hpp */,
 				9575894C2B1E834A00AB87A4 /* Algorithm.hpp */,
+				AD5FD7062B25B79700EBFCD7 /* Event.hpp */,
+				957589552B1EE74800AB87A4 /* FCFS.hpp */,
 				957589492B1AC68200AB87A4 /* Process.hpp */,
 				957589582B1EE76100AB87A4 /* RR.hpp */,
 				957589522B1EC56300AB87A4 /* Simulation.hpp */,
@@ -153,6 +158,7 @@
 				9575894D2B1E834A00AB87A4 /* Algorithm.cpp in Sources */,
 				9575894A2B1AC68200AB87A4 /* Process.cpp in Sources */,
 				957589592B1EE76100AB87A4 /* RR.cpp in Sources */,
+				AD5FD7082B25B7A800EBFCD7 /* Event.cpp in Sources */,
 				957589562B1EE74800AB87A4 /* FCFS.cpp in Sources */,
 				957589502B1E931800AB87A4 /* SJF.cpp in Sources */,
 				957589532B1EC56300AB87A4 /* Simulation.cpp in Sources */,

@@ -19,17 +19,14 @@ class SJF : public Algorithm{
 private:
     //private data members
     bool pre_emptive; //whether the algorithm is pre-emptive or not (Shortest Job First or Shortest Remaining Time Next)
-    //private methods
-    void preEmptiveImplementation(); //the pre-emptive implementation
-    void nonPreEmptiveImplememtation(); //the non pre-emptive implementation
     
 public:
     //public methods
     //default constructor
     SJF();
     //constructor initializers
-    SJF(int numOfProcesses, Process processes[]);
-    SJF(bool pre_emptive, int numOfProcesses, Process processes[]);
+    SJF(int numOfProcesses, Process processes[], int switchTime);
+    SJF(bool pre_emptive, int numOfProcesses, Process processes[], int switchTime);
     //implementation of algorithm method (override from parent class)
     void implementAlg() override; //will actually implement the algorithm
 };
