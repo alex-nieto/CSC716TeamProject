@@ -11,31 +11,26 @@ const string SJFname = "Shortest Job First";
 const string SRTNname = "Shortest Remaining Time Next";
 
 SJF :: SJF() : Algorithm(){
-    pre_emptive = 0;
+    pre_emptive = false;
 }
 SJF :: SJF(int numOfProcesses, Process processes[], int switchTime) : Algorithm(SJFname, numOfProcesses, processes, switchTime){
-    this->pre_emptive = 0;
+    this->pre_emptive = false;
 }
 SJF :: SJF(bool pre_emptive, int numOfProcesses, Process processes[], int switchTime) : Algorithm(pre_emptive ? SRTNname : SJFname, numOfProcesses, processes, switchTime){
     this->pre_emptive = pre_emptive;
 }
 void SJF :: implementAlg(){
     
-    //set clock start time
+    //set clock start time at 0
     int clockTime = 0;
     
+    //flag for indicating if process switch will happen for pre-emptive algorithm
     bool swapProcess = false;
     
-    //ready and wait queues
-    list<Process> readyQueue;
-    list<Event> waitingQueue;
-    //the processes that have arrived at a given time
-    list<Process> allProcessesArrived;
+    //create ready events + ready queue with "ready" processes
+    list<Process> readyQueue = createReadyQueue();
     
-    //create ready events + ready queue with ready processes
-    readyQueue = createReadyQueue();
-    
-    //new state of clock is arrival time of the first ready process (earliest arrival time)
+    //new state of clock is arrival time of the first ready process (sorted by earliest arrival time)
     clockTime = readyQueue.front().getArrivalTime();
     //set idle time to clockTime as so far this is the only wait time
     idleTime = clockTime;
@@ -44,9 +39,12 @@ void SJF :: implementAlg(){
     Event currentEvent;
     Process nextReadyProcess;
     
+    //the processes that have arrived at a given time
+    list<Process> allProcessesArrived;
+    
     do{
-        //loop through ready queue
         if(!swapProcess){
+            //loop through ready queue
             for(Process process : readyQueue){
                 //getting all events arrived at that time
                 if(clockTime >= process.getArrivalTime()){
@@ -62,9 +60,13 @@ void SJF :: implementAlg(){
         }else{
             //sort processes by service/burst time
             allProcessesArrived.sort([](Process &a, Process &b) { return a.getServiceTime() < b.getServiceTime(); });
+            //if process swapping occurs due to pre-emption
             if(swapProcess){
+                //save last clock time
                 int oldClock = clockTime;
+                //set clock time to next process's arrival time
                 clockTime = allProcessesArrived.front().getArrivalTime();
+                //save "new" service time (what is left for process) to existing process
                 nextReadyProcess.setServiceTime(nextReadyProcess.getServiceTime() - (clockTime - oldClock));
                 //create "swap" event -> return process to ready
                 currentEvent.setEvent(clockTime, nextReadyProcess, "ready", "running");
@@ -72,13 +74,16 @@ void SJF :: implementAlg(){
                 events.push_back(currentEvent);
                 //return process to ready queue
                 readyQueue.push_back(nextReadyProcess);
+                //Update clock with switch time accounted for
                 clockTime+=switchTime;
             }
             //sets next process to execute
             nextReadyProcess = allProcessesArrived.front();
-            //set next process start time
+            //set next process start time (this is the next/latest start time if process switch happened)
             nextReadyProcess.setStartTime(clockTime);
+            //save start time info to main process array data member - "master" process list
             for(int i = 0; i < numOfProcesses; i++){
+                //check if ids match and if we have not already set initial start time (which will be used to calculate other values)
                 if(nextReadyProcess.getProcessId() == processes[i].getProcessId() && !processes[i].getStarted()){
                     //set process start time for processes stored in process array
                     processes[i].setStartTime(clockTime);
@@ -91,27 +96,34 @@ void SJF :: implementAlg(){
             events.push_back(currentEvent);
             //removing process from ready queue
             readyQueue.remove(nextReadyProcess);
+            //reset allProcessesArrived list and swap process flag
             allProcessesArrived.clear();
             swapProcess = false;
             if(pre_emptive){
+                //if pre-emptive loop through the clock from the start time of the executing process (or current start time) until possible finish time (start time + service time)
                 for(int currentTime = clockTime; currentTime < nextReadyProcess.calculateFinishTime(); currentTime++){
+                    //temp count for current time passage
                     int timeUnitCount = 1;
                     //loop through ready queue
                     for(Process process : readyQueue){
-                        //getting all events arrived at that time
-                        //!(find(allProcessesArrived.begin(), allProcessesArrived.end(), process) != allProcessesArrived.end()) &&
+                        //getting all events arrived at "current" time with less service time than what is left for current process running
                         if(currentTime >= process.getArrivalTime() && process.getServiceTime() < nextReadyProcess.getServiceTime() - timeUnitCount){
+                            //add that to allProcessesArrived and set swap flag to true
                             allProcessesArrived.push_back(process);
                             swapProcess = true;
                         }
                     }
+                    //if at any time there is a new process that has arrived that can be swapped, break out of loop
                     if(swapProcess){
+                        //sorting the process arrived list by process id so if later two processes are equal, will go by process id
                         allProcessesArrived.sort([](Process &a, Process &b) { return a.getProcessId() < b.getProcessId(); });
                         break;
                     }
+                    //incrementing time passage by 1 time unit
                     timeUnitCount++;
                 }
             }
+            //if no swap is necessary, then we can move the process to terminated
             if(!swapProcess){
                 //set clock to finished process time
                 clockTime = nextReadyProcess.calculateFinishTime();
@@ -119,6 +131,7 @@ void SJF :: implementAlg(){
                 currentEvent.setEvent(clockTime, nextReadyProcess, "terminated", "running");
                 //adding event to events (all events that occure in algorithm)
                 events.push_back(currentEvent);
+                //if pre-emptive, we want to save the finish time (non-pre-emptive goes through termination uninterrupted, so can calculate with start time
                 if(pre_emptive){
                     for(int i = 0; i < numOfProcesses; i++){
                         if(nextReadyProcess.getProcessId() == processes[i].getProcessId()){
@@ -127,6 +140,7 @@ void SJF :: implementAlg(){
                         }
                     }
                 }
+                //account for process switch time
                 clockTime+=switchTime;
             }
         }
