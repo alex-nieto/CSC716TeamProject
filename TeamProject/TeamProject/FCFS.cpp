@@ -16,6 +16,8 @@ const string FCFSname = "First Come First Serve";
 
 FCFS :: FCFS(){
 
+//  Created by Rifat Abuelenin on 12/12/23.
+     
      class EventQueue { // EventQueue class in the provided code  is designed to manage a priority queue  
     //the EventQueue class manages a queue of events, ensuring that they are processed in a specific order (as determined by the priority queue's ordering). 
     //This is a common structure in systems where events occur at different times or need to be processed in a specific sequence, such as in simulations, operating system schedulers, or event-driven programming models.
@@ -48,6 +50,7 @@ FCFS :: FCFS(){
 
     }
     
+//  Created by Rifat Abuelenin on 12/12/23.
 }
 FCFS :: FCFS(int numOfProcesses, Process processes[]) : Algorithm(FCFSname, numOfProcesses, processes){
     
@@ -68,6 +71,9 @@ FCFS::FCFS() {
     FCFS::FCFS(int numOfProcesses, Process processes[]) : Algorithm(FCFSname, numOfProcesses, processes) {
 
     }
+     
+//  Created by Rifat Abuelenin on 12/12/23.
+     
     void FCFS::implementAlg() {
         std::vector<Process> processQueue(processes, processes + numOfProcesses);
 
@@ -112,6 +118,9 @@ FCFS::FCFS() {
                 << process.turnaroundTime << "\n";
         }
 
+         
+//  Created by Rifat Abuelenin on 12/12/23.
+         
         std::cout << "Average waiting time = "
             << static_cast<double>(totalWaitingTime) / processQueue.size() << "\n";
         std::cout << "Average turnaround time = "
@@ -126,6 +135,7 @@ FCFS::FCFS() {
     }
 }
 
+//  Created by Rifat Abuelenin on 12/12/23.
     
 }
 
