@@ -95,7 +95,7 @@ void SJF :: implementAlg(){
             swapProcess = false;
             if(pre_emptive){
                 for(int currentTime = clockTime; currentTime < nextReadyProcess.calculateFinishTime(); currentTime++){
-                    int timeUnitCount = 0;
+                    int timeUnitCount = 1;
                     //loop through ready queue
                     for(Process process : readyQueue){
                         //getting all events arrived at that time
