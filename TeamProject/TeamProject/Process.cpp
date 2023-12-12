@@ -13,9 +13,8 @@ Process :: Process(){
     serviceTime = 0;
     ioTime = 0;
     priority = 0;
-    startTime = 0;
+    startTime = -1;
     finishTime = 0;
-    started = false;
 }
 Process :: Process(int processId, int serviceTime){
     this->processId = processId;
@@ -23,9 +22,8 @@ Process :: Process(int processId, int serviceTime){
     this->serviceTime = serviceTime;
     this->ioTime = 0;
     this->priority = 0;
-    this->startTime = 0;
+    this->startTime = -1;
     this->finishTime = 0;
-    this->started = false;
 }
 Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime){
     this->processId = processId;
@@ -33,9 +31,8 @@ Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime){
     this->serviceTime = serviceTime;
     this->ioTime = ioTime;
     this->priority = 0;
-    this->startTime = 0;
+    this->startTime = -1;
     this->finishTime = 0;
-    this->started = false;
 }
 Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime, int priority){
     this->processId = processId;
@@ -43,9 +40,8 @@ Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime, 
     this->serviceTime = serviceTime;
     this->ioTime = ioTime;
     this->priority = priority;
-    this->startTime = 0;
+    this->startTime = -1;
     this->finishTime = 0;
-    this->started = false;
 }
 Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime, int priority, int startTime){
     this->processId = processId;
@@ -55,7 +51,6 @@ Process :: Process(int processId, int arrivalTime, int serviceTime, int ioTime, 
     this->priority = priority;
     this->startTime = startTime;
     this->finishTime = 0;
-    this->started = false;
 }
 void Process :: setProcessId(int processId){
     this->processId = processId;
@@ -75,9 +70,6 @@ void Process :: setStartTime(int startTime){
 void Process :: setFinishTime(int finishTime){
     this->finishTime = finishTime;
 }
-void Process :: setStarted(bool started){
-    this->started = started;
-}
 int Process :: getProcessId(){
     return processId;
 }
@@ -96,20 +88,17 @@ int Process :: getStartTime(){
 int Process :: getFinishTime(){
     return finishTime;
 }
-bool Process :: getStarted(){
-    return started;
-}
 int Process :: calculateFinishTime(){
     return startTime + serviceTime;
 }
 int Process :: calculateTurnAroundTime(){
-    return calculateFinishTime() - arrivalTime;
+    return finishTime - arrivalTime;
 }
 int Process :: calculateNormalizedTAT(){
     return calculateTurnAroundTime()/serviceTime;
 }
 int Process :: calculateWaitTime(){
-    return calculateFinishTime() - arrivalTime;
+    return finishTime - arrivalTime;
 }
 void Process :: printProcessInfo(string algoName){
     cout << "Arrival Time: " << this->arrivalTime << " time units" << endl;
@@ -117,7 +106,7 @@ void Process :: printProcessInfo(string algoName){
     cout << "I/O Time: " << this->ioTime << " time units" << endl;
     cout << "Turnaround Time: " << calculateTurnAroundTime() << " time units" << endl;
     cout << "Start Time: " << this->startTime << " time units" << endl;
-    cout << "Finish Time: " << (algoName == "First Come First Serve" || algoName == "Shortest Job First" ? calculateFinishTime() : finishTime) << " time units" << endl;
+    cout << "Finish Time: " << finishTime << " time units" << endl;
 }
 void Process :: operator=(const Process &p){
     this->processId = p.processId;

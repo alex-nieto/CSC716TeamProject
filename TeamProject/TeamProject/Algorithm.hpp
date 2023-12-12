@@ -22,7 +22,7 @@ protected:
     Process* processes; //pointer to the list of processes to be executed in the algorithm (job queue)
     list<Event> events; //events for the algorithm
     int idleTime; //time the cpu not busy (to be updated by the child class - will be dependent on input and alg used)
-    int switchTime;
+    int switchTime; //process switch time for cpu
     //protected methods
     list<Process> createReadyQueue(); //creates ready events and ready queue with available processes
     

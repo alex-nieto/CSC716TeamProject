@@ -84,10 +84,9 @@ void SJF :: implementAlg(){
             //save start time info to main process array data member - "master" process list
             for(int i = 0; i < numOfProcesses; i++){
                 //check if ids match and if we have not already set initial start time (which will be used to calculate other values)
-                if(nextReadyProcess.getProcessId() == processes[i].getProcessId() && !processes[i].getStarted()){
+                if(nextReadyProcess == processes[i] && processes[i].getStartTime() < 0){
                     //set process start time for processes stored in process array
                     processes[i].setStartTime(clockTime);
-                    processes[i].setStarted(true);
                 }
             }
             //create running event from next ready process
@@ -131,13 +130,11 @@ void SJF :: implementAlg(){
                 currentEvent.setEvent(clockTime, nextReadyProcess, "terminated", "running");
                 //adding event to events (all events that occure in algorithm)
                 events.push_back(currentEvent);
-                //if pre-emptive, we want to save the finish time (non-pre-emptive goes through termination uninterrupted, so can calculate with start time
-                if(pre_emptive){
-                    for(int i = 0; i < numOfProcesses; i++){
-                        if(nextReadyProcess.getProcessId() == processes[i].getProcessId()){
-                            //set process start time for processes stored in process array
-                            processes[i].setFinishTime(clockTime);
-                        }
+                //save the finish time to main process list
+                for(int i = 0; i < numOfProcesses; i++){
+                    if(nextReadyProcess == processes[i]){
+                        //set process start time for processes stored in process array
+                        processes[i].setFinishTime(clockTime);
                     }
                 }
                 //account for process switch time
