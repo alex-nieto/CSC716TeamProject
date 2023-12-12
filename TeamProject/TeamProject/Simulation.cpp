@@ -147,7 +147,7 @@ Process* Simulation :: copyProcessListToArr(){
 void Simulation :: runSelectAlgorithm(){
     if(!readParameterInput()){
         int arrSize = 6;
-        Algorithm* algorithToRun[6]{new FCFS(numOfProcesses,copyProcessListToArr()),new SJF(numOfProcesses,copyProcessListToArr(),switchTime),new SJF(1,numOfProcesses,copyProcessListToArr(),switchTime),
+        Algorithm* algorithToRun[6]{new FCFS(numOfProcesses,copyProcessListToArr(),switchTime),new SJF(numOfProcesses,copyProcessListToArr(),switchTime),new SJF(1,numOfProcesses,copyProcessListToArr(),switchTime),
             new RR(10,numOfProcesses,copyProcessListToArr()),new RR(50,numOfProcesses,copyProcessListToArr()), new RR(100,numOfProcesses,copyProcessListToArr())};
         if(algToImplement != ""){
             arrSize = 1;

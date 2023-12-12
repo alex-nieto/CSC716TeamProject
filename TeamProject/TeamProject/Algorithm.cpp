@@ -52,9 +52,6 @@ int Algorithm :: calculateTotalTimeExecution(){
     int totalExecuteTime = 0;
     if(processes != NULL){
         for(int i = 0; i < numOfProcesses; i++){
-            if(name == "First Come First Serve"){
-                processes[i].setFinishTime(processes[i].calculateFinishTime());
-            }
             if(processes[i].getFinishTime() > totalExecuteTime)
                 totalExecuteTime = processes[i].getFinishTime();
         }

@@ -11,14 +11,18 @@
 #include <stdio.h>
 #include "Algorithm.hpp"
 
+//class to implement "First Come First Serve" algorithm
 class FCFS : public Algorithm{
     
 private:
-
+    //private data members
+    int clockTime;
+    list<Process> readyQueue;
     
 public:
-    FCFS();
-    FCFS(int numOfProcesses, Process processes[]);
+    //constructor initializer
+    FCFS(int numOfProcesses, Process processes[], int switchTime);
+    //implementation of algorithm method (override from parent class)
     void implementAlg() override;
 };
 
