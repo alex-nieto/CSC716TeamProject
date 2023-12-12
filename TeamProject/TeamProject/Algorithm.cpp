@@ -61,7 +61,7 @@ int Algorithm :: calculateTotalTimeExecution(){
 int Algorithm :: calculateCPUutilization(){
     //busy time/total time
     int totalTime = calculateTotalTimeExecution();
-    return totalTime != 0 ? (totalTime - idleTime) / totalTime : 0;
+    return totalTime != 0 ? ((totalTime - idleTime) / totalTime)*100 : 0;
 }
 void Algorithm :: printAlgorithmInfo(){
     cout << name << ": " << endl;

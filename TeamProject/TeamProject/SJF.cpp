@@ -60,8 +60,11 @@ void SJF :: implementAlg(){
             allProcessesArrived.sort([](Process &a, Process &b) { return a.getServiceTime() < b.getServiceTime(); });
             //sets next process to execute
             nextReadyProcess = allProcessesArrived.front();
+            //set next process start time
+            nextReadyProcess.setStartTime(clockTime);
             for(int i = 0; i < numOfProcesses; i++){
                 if(nextReadyProcess.getProcessId() == processes[i].getProcessId()){
+                    //set process start time for processes stored in process array
                     processes[i].setStartTime(clockTime);
                 }
             }
@@ -73,7 +76,7 @@ void SJF :: implementAlg(){
         //adding event to events (all events that occur in algorithm)
         events.push_back(currentEvent);
         //set clock to finished process time
-        clockTime = readyQueue.front().calculateFinishTime() + switchTime;
+        clockTime = nextReadyProcess.calculateFinishTime() + switchTime;
         //create terminated event
         currentEvent.setEvent(clockTime, nextReadyProcess, "terminated", "running");
         //adding event to events (all events that occure in algorithm)
