@@ -47,7 +47,7 @@ public:
     int getTime();
     string getOldState();
     string getNewState();
-    Process getProcess();
+    Process& getProcess();
 
         int getRemaningTime();
     EventType getEventType();

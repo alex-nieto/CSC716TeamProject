@@ -11,9 +11,9 @@ RR::RR()
 {
 }
 
-RR::RR(int quantum, int numOfProcesses, Process processes[]) : Algorithm(RRname + std::to_string(quantum), numOfProcesses, processes)
+RR::RR(int quantum, int numOfProcesses, Process processes[], int switchTime) : Algorithm(RRname + std::to_string(quantum), numOfProcesses, processes)
 {
-    
+
     deque<Event> watingQueue;
     deque<Event> IOQueue;
     queue<Event> CompletedQueue;
@@ -22,7 +22,7 @@ RR::RR(int quantum, int numOfProcesses, Process processes[]) : Algorithm(RRname 
     this->currentTime = 0;
     this->timeQuantam = 50;
     this->quantum = 50;
-    this->events;
+    this->switchTime = switchTime;
 }
 
 bool RR::compareEvent(Event obj1, Event obj2)
@@ -68,6 +68,7 @@ void RR::implementAlg()
             this->handleCompleted(currentEvent);
         }
     }
+    this->updateProcesses();
 }
 
 void RR::handleArrivalEvent(Event event)
@@ -75,12 +76,19 @@ void RR::handleArrivalEvent(Event event)
     if (this->currentTime < event.getRemaningTime() < this->timeQuantam)
     {
         cout << "event arrived " << this->currentTime << " " << event.getProcess().getServiceTime() << "\n";
-        event.getProcess().setArrivalTime(this->currentTime);
+        event.getProcess().setStartTime(this->currentTime);
         this->currentTime = this->currentTime + event.getProcess().getServiceTime();
         cout << "start time" << event.getProcess().getStartTime() << "\n";
         event.setEventType(EventType::processIo);
         event.getProcess().setFinishTime(this->currentTime);
         this->watingQueue.push_front(event);
+    }
+}
+
+void RR::updateProcesses(){
+    for (int i = 0; i < this->numOfProcesses; i++)
+    {
+        this->processes[i] = this->CompletedQueue[i].getProcess();
     }
 }
 
@@ -100,11 +108,14 @@ void RR::handleCompleted(Event event)
     cout << "event completed completed" << event.getProcess().getProcessId() << "\n";
 }
 
-void RR :: printProcessInfo(){
-    //just overwting it for now. 
-    for(int i = 0; i < numOfProcesses; i++){
-        cout << "Process " << i+1 << ": " << endl;
+void RR ::printProcessInfo()
+{
+    // just overwting it for now.
+    for (int i = 0; i < numOfProcesses; i++)
+    {
+        cout << "Process " << i + 1 << ": " << endl;
         this->CompletedQueue[i].getProcess().printProcessInfo();
+
         cout << endl;
     }
 }

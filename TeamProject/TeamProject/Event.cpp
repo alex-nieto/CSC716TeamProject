@@ -80,9 +80,9 @@ string Event ::getNewState()
 {
     return newState;
 }
-Process Event ::getProcess()
+Process& Event ::getProcess()
 {
-    return process;
+    return this->process;
 }
 void Event ::printEventInfo()
 {

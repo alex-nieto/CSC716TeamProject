@@ -39,6 +39,7 @@ public:
     void handleCompleted(Event event);
     void handleIo(Event event);
     bool compareEvent(Event obj1, Event obj2);
+    void updateProcesses();
 };
 
 #endif /* RR_hpp */
