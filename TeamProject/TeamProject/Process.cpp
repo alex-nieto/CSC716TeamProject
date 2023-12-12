@@ -117,7 +117,7 @@ void Process :: printProcessInfo(string algoName){
     cout << "I/O Time: " << this->ioTime << " time units" << endl;
     cout << "Turnaround Time: " << calculateTurnAroundTime() << " time units" << endl;
     cout << "Start Time: " << this->startTime << " time units" << endl;
-    cout << "Finish Time: " << (algoName == "FCFS" && algoName == "SJF" ? calculateFinishTime() : finishTime) << " time units" << endl;
+    cout << "Finish Time: " << (algoName == "First Come First Serve" || algoName == "Shortest Job First" ? calculateFinishTime() : finishTime) << " time units" << endl;
 }
 void Process :: operator=(const Process &p){
     this->processId = p.processId;
