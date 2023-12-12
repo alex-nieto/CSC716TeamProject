@@ -28,6 +28,6 @@ public:
     SJF(int numOfProcesses, Process processes[], int switchTime);
     SJF(bool pre_emptive, int numOfProcesses, Process processes[], int switchTime);
     //implementation of algorithm method (override from parent class)
-    void implementAlg() override; //will actually implement the algorithm
+    void implementAlg() override;
 };
 #endif /* SJF_hpp */

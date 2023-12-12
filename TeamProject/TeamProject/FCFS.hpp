@@ -20,6 +20,8 @@ private:
     list<Process> readyQueue;
     
 public:
+    //default constructor
+    FCFS();
     //constructor initializer
     FCFS(int numOfProcesses, Process processes[], int switchTime);
     //implementation of algorithm method (override from parent class)

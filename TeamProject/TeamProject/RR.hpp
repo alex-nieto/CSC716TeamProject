@@ -11,14 +11,19 @@
 #include <stdio.h>
 #include "Algorithm.hpp"
 
+//class to implement "Round Robin" algorithm given a quantum
 class RR : public Algorithm{
     
 private:
+    //private data member
     int quantum;
     
 public:
+    //default constructor
     RR();
-    RR(int quantum, int numOfProcesses, Process processes[]);
+    //constructor initializer
+    RR(int quantum, int numOfProcesses, Process processes[], int switchTime);
+    //implementation of algorithm method (override from parent class)
     void implementAlg() override;
 };
 

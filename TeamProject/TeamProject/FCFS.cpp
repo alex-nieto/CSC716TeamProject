@@ -9,6 +9,8 @@
 
 const string FCFSname = "First Come First Serve";
 
+FCFS :: FCFS() : Algorithm(){}
+
 FCFS :: FCFS(int numOfProcesses, Process processes[], int switchTime) : Algorithm(FCFSname, numOfProcesses, processes, switchTime){
     //set clock start time at 0
     clockTime = 0;
