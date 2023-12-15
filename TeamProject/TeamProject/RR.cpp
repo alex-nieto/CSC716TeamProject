@@ -2,120 +2,105 @@
 
 #include "RR.hpp"
 #include "queue"
-#include "Event.hpp"
 #include <algorithm>
 
-const std::string RRname = "Round Robin - Quantum = ";
+const string RRname = "Round Robin - Quantum = ";
 
-RR::RR()
-{
+RR :: RR() : Algorithm(){
+    quantum = 1;
 }
 
-RR::RR(int quantum, int numOfProcesses, vector<Process> processes, int switchTime) : Algorithm(RRname + std::to_string(quantum), numOfProcesses, processes)
-{
-
-    deque<Event> watingQueue;
-    deque<Event> IOQueue;
-    queue<Event> CompletedQueue;
-    this->processes = processes;
-    this->numOfProcesses = numOfProcesses;
-    this->currentTime = 0;
-    this->timeQuantam = 50;
-    this->quantum = 50;
-    this->switchTime = switchTime;
-}
-
-bool RR::compareEvent(Event obj1, Event obj2)
-{
-    return obj1.getProcess().getArrivalTime() < obj2.getProcess().getArrivalTime();
-}
-
-void RR::initializeEventQueue()
-{
-    cout << this->numOfProcesses;
-    for (int i = 0; i <= this->numOfProcesses; i++)
-    {
-        Event temp = Event(this->processes[i].getArrivalTime(), processes[i], "ready", "new", processes[i].getServiceTime(), EventType::arrival);
-        this->watingQueue.push_back(temp);
-    }
-    std::sort(this->watingQueue.begin(), this->watingQueue.end(), [this](const Event &event1, const Event &event2)
-              { return this->compareEvent(event1, event2); });
+RR :: RR(int quantum, int numOfProcesses, vector<Process> processes, int switchTime) : Algorithm(RRname + to_string(quantum), numOfProcesses, processes, switchTime){
+    this->quantum = quantum;
 }
 
 void RR::implementAlg()
 {
-    // // initlize the event que
-    this->initializeEventQueue();
-
-    // run untill the event que is empty
-    while (!this->watingQueue.empty())
-    {
-        // give the latest recent event
-        Event currentEvent = this->watingQueue.front();
-        this->watingQueue.pop_front();
-        this->currentTime = std::max(currentEvent.getProcess().getArrivalTime(), this->currentTime);
-
-        if (currentEvent.getEventType() == EventType::arrival)
-        {
-            this->handleArrivalEvent(currentEvent);
+    //set clock start time at 0
+    int clockTime = 0;
+    
+    //flag for indicating if process switch will happen for pre-emptive algorithm
+    bool swapProcess = false;
+    
+    //create ready events + ready queue with "ready" processes
+    list<Process> readyQueue = createReadyQueue();
+    
+    //new state of clock is arrival time of the first ready process (sorted by earliest arrival time)
+    clockTime = readyQueue.front().getArrivalTime();
+    //set idle time to clockTime as so far this is the only wait time
+    idleTime = clockTime;
+    
+    //create temporary event and process to hold current event and next ready process
+    Event currentEvent;
+    Process nextReadyProcess;
+    
+    //the processes that have arrived at a given time
+    list<Process> allProcessesArrived;
+    
+    do{
+        //loop through ready queue
+        for(Process process : readyQueue){
+            //getting all events arrived at that time
+            if(clockTime >= process.getArrivalTime()){
+                allProcessesArrived.push_back(process);
+            }
         }
-        else if (currentEvent.getEventType() == EventType::processIo)
-        {
-            this->handleIo(currentEvent);
+        //if no processes available at next time
+        if(allProcessesArrived.empty()){
+            //calculate idle time
+            idleTime = idleTime + readyQueue.front().getArrivalTime() - clockTime;
+            clockTime = readyQueue.front().getArrivalTime();
+        }else{
+            //sets next process to execute
+            nextReadyProcess = allProcessesArrived.front();
+            //set next process start time (this is the next/latest start time if process switch happened)
+            nextReadyProcess.setStartTime(clockTime);
+            //save start time info to main process array data member - "master" process list
+            for(int i = 0; i < numOfProcesses; i++){
+                //check if ids match and if we have not already set initial start time (which will be used to calculate other values)
+                if(nextReadyProcess == processes[i] && processes[i].getStartTime() < 0){
+                    //set process start time for processes stored in process array
+                    processes[i].setStartTime(clockTime);
+                }
+            }
+            //create running event from next ready process
+            currentEvent.setEvent(clockTime, nextReadyProcess, "running", "ready");
+            //adding event to events (all events that occur in algorithm)
+            events.push_back(currentEvent);
+            //removing process from ready queue
+            readyQueue.remove(nextReadyProcess);
+            //if process swapping occurs due to pre-emption
+            clockTime+=quantum;
+            if(nextReadyProcess.getServiceTime() <= clockTime){
+                //set clock to finished process time
+                clockTime = nextReadyProcess.calculateFinishTime();
+                //create terminated event
+                currentEvent.setEvent(clockTime, nextReadyProcess, "terminated", "running");
+                //adding event to events (all events that occure in algorithm)
+                events.push_back(currentEvent);
+                //save the finish time to main process list
+                for(int i = 0; i < numOfProcesses; i++){
+                    if(nextReadyProcess == processes[i]){
+                        //set process start time for processes stored in process array
+                        processes[i].setFinishTime(clockTime);
+                    }
+                }
+            }else{
+                //save "new" service time (what is left for process) to existing process
+                nextReadyProcess.setServiceTime(nextReadyProcess.getServiceTime() - quantum);
+                //save "new" service time (what is left for process) to existing process
+                nextReadyProcess.setArrivalTime(clockTime);
+                //create "swap" event -> return process to ready
+                currentEvent.setEvent(clockTime, nextReadyProcess, "ready", "running");
+                //adding event to events (all events that occur in algorithm)
+                events.push_back(currentEvent);
+                //return process to ready queue
+                readyQueue.push_back(nextReadyProcess);
+            }
+            //Update clock with switch time accounted for
+            clockTime+=switchTime;
+            //reset allProcessesArrived list and swap process flag
+            allProcessesArrived.clear();
         }
-        else if (currentEvent.getEventType() == EventType::completed)
-        {
-            this->handleCompleted(currentEvent);
-        }
-    }
-    this->updateProcesses();
-}
-
-void RR::handleArrivalEvent(Event event)
-{
-    if (this->currentTime < event.getRemaningTime() < this->timeQuantam)
-    {
-        cout << "event arrived " << this->currentTime << " " << event.getProcess().getServiceTime() << "\n";
-        event.getProcess().setStartTime(this->currentTime);
-        this->currentTime = this->currentTime + event.getProcess().getServiceTime();
-        cout << "start time" << event.getProcess().getStartTime() << "\n";
-        event.setEventType(EventType::processIo);
-        event.getProcess().setFinishTime(this->currentTime);
-        this->watingQueue.push_front(event);
-    }
-}
-
-void RR::updateProcesses(){
-    for (int i = 0; i < this->numOfProcesses; i++)
-    {
-        this->processes[i] = this->CompletedQueue[i].getProcess();
-    }
-}
-
-void RR::handleIo(Event event)
-{
-    this->IOQueue.push_back(event);
-    cout << event.getProcess().getProcessId() << "pushed to io"
-         << "\n";
-    event.setEventType(EventType::completed);
-    this->watingQueue.push_front(event);
-}
-
-void RR::handleCompleted(Event event)
-{
-    event.setEventType(EventType::completed);
-    this->CompletedQueue.push_back(event);
-    cout << "event completed completed" << event.getProcess().getProcessId() << "\n";
-}
-
-void RR ::printProcessInfo()
-{
-    // just overwting it for now.
-    for (int i = 0; i < numOfProcesses; i++)
-    {
-        cout << "Process " << i + 1 << ": " << endl;
-        this->CompletedQueue[i].getProcess().printProcessInfo();
-
-        cout << endl;
-    }
+    }while(!readyQueue.empty()); //while ready queue is not empty
 }
