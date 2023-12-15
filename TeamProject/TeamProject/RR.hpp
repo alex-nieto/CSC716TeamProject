@@ -30,7 +30,7 @@ public:
     //default constructor
     RR();
     //constructor initializer
-    RR(int quantum, int numOfProcesses, Process processes[], int switchTime);
+    RR(int quantum, int numOfProcesses, vector<Process> processes, int switchTime);
     //implementation of algorithm method (override from parent class)
     void implementAlg() override;
     void printProcessInfo() override;

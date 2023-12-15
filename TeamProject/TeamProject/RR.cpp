@@ -11,7 +11,7 @@ RR::RR()
 {
 }
 
-RR::RR(int quantum, int numOfProcesses, Process processes[], int switchTime) : Algorithm(RRname + std::to_string(quantum), numOfProcesses, processes)
+RR::RR(int quantum, int numOfProcesses, vector<Process> processes, int switchTime) : Algorithm(RRname + std::to_string(quantum), numOfProcesses, processes)
 {
 
     deque<Event> watingQueue;

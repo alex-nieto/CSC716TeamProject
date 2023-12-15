@@ -134,15 +134,6 @@ void Simulation :: runAlgorithm(Algorithm** algorithToRun, int arrSize){
         cout << endl;
     }
 }
-Process* Simulation :: copyProcessListToArr(){
-    Process* newProcessArr = new Process[numOfProcesses];
-    int i = 0;
-    for(Process process : processList){
-        newProcessArr[i] = process;
-        i++;
-    }
-    return newProcessArr;
-}
 void Simulation :: runSelectAlgorithm(){
     if(!readParameterInput()){
         int arrSize = 6;
