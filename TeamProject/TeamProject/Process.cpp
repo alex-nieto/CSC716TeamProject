@@ -108,13 +108,14 @@ void Process :: printProcessInfo(){
     cout << "Start Time: " << this->startTime << " time units" << endl;
     cout << "Finish Time: " << finishTime << " time units" << endl;
 }
-void Process :: operator=(const Process &p){
-    this->processId = p.processId;
-    this->arrivalTime = p.arrivalTime;
-    this->serviceTime = p.serviceTime;
-    this->ioTime = p.ioTime;
-    this->priority = p.priority;
-    this->startTime = p.startTime;
+Process& Process :: operator=(const Process &process){
+    this->processId = process.processId;
+    this->arrivalTime = process.arrivalTime;
+    this->serviceTime = process.serviceTime;
+    this->ioTime = process.ioTime;
+    this->priority = process.priority;
+    this->startTime = process.startTime;
+    return *this;
 }
 bool Process :: operator==(const Process &p) const{
     return this->processId == p.processId;

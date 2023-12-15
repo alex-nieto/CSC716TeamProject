@@ -19,9 +19,6 @@ void RR::implementAlg()
     //set clock start time at 0
     int clockTime = 0;
     
-    //flag for indicating if process switch will happen for pre-emptive algorithm
-    bool swapProcess = false;
-    
     //create ready events + ready queue with "ready" processes
     list<Process> readyQueue = createReadyQueue();
     
@@ -71,7 +68,7 @@ void RR::implementAlg()
             readyQueue.remove(nextReadyProcess);
             //if process swapping occurs due to pre-emption
             clockTime+=quantum;
-            if(nextReadyProcess.getServiceTime() <= clockTime){
+            if(nextReadyProcess.getServiceTime() <= quantum){
                 //set clock to finished process time
                 clockTime = nextReadyProcess.calculateFinishTime();
                 //create terminated event
@@ -96,6 +93,7 @@ void RR::implementAlg()
                 events.push_back(currentEvent);
                 //return process to ready queue
                 readyQueue.push_back(nextReadyProcess);
+                readyQueue.sort([](Process &a, Process &b) { return a.getProcessId() < b.getProcessId(); });
             }
             //Update clock with switch time accounted for
             clockTime+=switchTime;

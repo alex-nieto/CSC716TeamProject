@@ -39,7 +39,7 @@ public:
     //print methods
     void printEventInfo(); //outputs the event info (At time X: Process {id} moves from {state} to {state})
     //overloaded operator methods
-    void operator=(const Event &event); //assign event to another event (= operator)
+    Event& operator=(const Event &event); //assign event to another event (= operator)
     bool operator<(const Event &event) const; //check if event is less than another event (time)
     bool operator>(const Event &event) const; //check if event is greater than another event (time)
     bool operator<=(const Event &event) const; //check if event is less than or equal to another event (time)
