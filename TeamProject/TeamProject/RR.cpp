@@ -93,7 +93,7 @@ void RR::implementAlg()
                 events.push_back(currentEvent);
                 //return process to ready queue
                 readyQueue.push_back(nextReadyProcess);
-                readyQueue.sort([](Process &a, Process &b) { return a.getProcessId() < b.getProcessId(); });
+                readyQueue.sort([](Process &a, Process &b) { return a.getArrivalTime() < b.getArrivalTime(); });
             }
             //Update clock with switch time accounted for
             clockTime+=switchTime;
