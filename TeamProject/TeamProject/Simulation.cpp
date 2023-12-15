@@ -185,7 +185,7 @@ void Simulation :: runSelectAlgorithm(){
 }
 bool Simulation :: execute(){
     if(input != "" && input != "exit"){
-        if(!input.find("sim")){
+        if(input.find("sim")){
             if(!readFile())
                 runSelectAlgorithm();
         }else{
