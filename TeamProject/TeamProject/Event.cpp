@@ -52,11 +52,12 @@ Process Event :: getProcess(){
 void Event :: printEventInfo(){
     cout << "At time " << time << ": P" << process.getProcessId() << " moves from " << oldState << " to " << newState << endl;
 }
-void Event :: operator=(const Event &event){
+Event& Event :: operator=(const Event &event){
     this->time = event.time;
     this->oldState = event.oldState;
     this->newState = event.newState;
     this->process = event.process;
+    return *this;
 }
 bool Event :: operator<(const Event &event) const {
     return this->time < event.time;

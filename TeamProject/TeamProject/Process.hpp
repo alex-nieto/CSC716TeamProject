@@ -59,7 +59,7 @@ public:
     //print method
     void printProcessInfo(); //outputs the process information
     //overloaded operator methods
-    void operator=(const Process &p); //assign process to process (= operator)
+    Process& operator=(const Process &p); //assign process to process (= operator)
     bool operator==(const Process &p) const; //check if process is equal to another process
 };
 
