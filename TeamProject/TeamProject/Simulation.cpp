@@ -23,6 +23,27 @@ Simulation :: Simulation(string input){
     numOfProcesses = 0;
     switchTime = -1;
 }
+void Simulation :: setInput(string input){
+    this->input = input;
+}
+string Simulation :: getInput(){
+    return input;
+}
+bool Simulation :: getDetail(){
+    return detail;
+}
+bool Simulation :: getVerbose(){
+    return verbose;
+}
+string Simulation :: getAlgToImpl(){
+    return algToImplement;
+}
+int Simulation :: getNumOfProcesses(){
+    return numOfProcesses;
+}
+vector<Process> Simulation :: getProcesses(){
+    return processList;
+}
 bool Simulation :: readFile(){
     string filePath = input.substr(input.find("<") + 1);
     erase(filePath, ' ');
@@ -135,20 +156,11 @@ void Simulation :: runAlgorithm(Algorithm** algorithToRun, int arrSize){
         cout << endl;
     }
 }
-Process* Simulation :: copyProcessListToArr(){
-    Process newProcessArr[numOfProcesses];
-    int i = 0;
-    for(Process process : processList){
-        newProcessArr[i] = process;
-        i++;
-    }
-    return newProcessArr;
-}
 void Simulation :: runSelectAlgorithm(){
     if(!readParameterInput()){
         int arrSize = 6;
-        Algorithm* algorithToRun[6]{new FCFS(numOfProcesses,copyProcessListToArr(),switchTime),new SJF(numOfProcesses,copyProcessListToArr(),switchTime),new SJF(1,numOfProcesses,copyProcessListToArr(),switchTime),
-            new RR(10,numOfProcesses,copyProcessListToArr(),switchTime),new RR(50,numOfProcesses,copyProcessListToArr(),switchTime), new RR(100,numOfProcesses,copyProcessListToArr(),switchTime)};
+        Algorithm* algorithToRun[6]{new FCFS(numOfProcesses,processList,switchTime),new SJF(numOfProcesses,processList,switchTime),new SJF(1,numOfProcesses,processList,switchTime),
+            new RR(10,numOfProcesses,processList,switchTime),new RR(50,numOfProcesses,processList,switchTime), new RR(100,numOfProcesses,processList,switchTime)};
         if(algToImplement != ""){
             arrSize = 1;
             if(algToImplement == "FCFS "){

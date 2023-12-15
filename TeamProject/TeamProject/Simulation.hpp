@@ -27,13 +27,12 @@ private:
     string algToImplement; //will hold the algorithm abreviation chosen if any (FCFS, SJF, SRTN, RR10, RR50, RR100)
     int numOfProcesses; //number of processes indicated by the file
     int switchTime;
-    list<Process> processList; //processes created from file information
+    vector<Process> processList; //processes created from file information
     //private methods
     bool readFile(); //reads file information and create the process list
     bool readParameterInput(); //reads which parameters were included and updates related Simulation members
     void runAlgorithm(Algorithm** algorithToRun, int size); //implements a list of algorithms and outputs/prints results
     void runSelectAlgorithm(); //runs the selected algorithm and outputs/prints results
-    Process* copyProcessListToArr(); //copies list of processes into an array
     
 public:
     //public methods
@@ -49,7 +48,7 @@ public:
     bool getVerbose();
     string getAlgToImpl();
     int getNumOfProcesses();
-    Process* getProcesses();
+    vector<Process> getProcesses();
     //execute method
     bool execute(); //executes the input (runs algorithm selected or all and corresponding input parameters
 };

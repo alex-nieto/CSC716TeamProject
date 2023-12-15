@@ -10,18 +10,18 @@
 Algorithm :: Algorithm(){
     name = "";
     numOfProcesses = 0;
-    processes = NULL;
+    processes = *(new vector<Process>());
     switchTime = 0;
     idleTime = 0;
 }
-Algorithm :: Algorithm(string name, int numOfProcesses, Process processes[]){
+Algorithm :: Algorithm(string name, int numOfProcesses, vector<Process> processes){
     this->name = name;
     this->numOfProcesses = numOfProcesses;
     this->processes = processes;
     this->switchTime = 1;
     idleTime = 0;
 }
-Algorithm :: Algorithm(string name, int numOfProcesses, Process processes[], int switchTime){
+Algorithm :: Algorithm(string name, int numOfProcesses, vector<Process> processes, int switchTime){
     this->name = name;
     this->numOfProcesses = numOfProcesses;
     this->processes = processes;
@@ -50,7 +50,7 @@ list<Process> Algorithm :: createReadyQueue(){
 int Algorithm :: calculateTotalTimeExecution(){
     //looping through all processes to find the latest finish time
     int totalExecuteTime = 0;
-    if(processes != NULL){
+    if(!processes.empty()){
         for(int i = 0; i < numOfProcesses; i++){
             if(processes[i].getFinishTime() > totalExecuteTime)
                 totalExecuteTime = processes[i].getFinishTime();
