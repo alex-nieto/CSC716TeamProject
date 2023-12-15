@@ -6,8 +6,6 @@
 //
 
 #include "RR.hpp"
-#include "queue"
-#include <algorithm>
 
 const string RRname = "Round Robin - Quantum = ";
 
