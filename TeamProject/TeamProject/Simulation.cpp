@@ -51,7 +51,7 @@ bool Simulation :: readFile(){
         return true;
     }
     //open the file for reading
-    filePath = "input.txt";
+    filePath = "/Users/alexnieto/Desktop/Desktop - Alex’s MacBook Pro/inputFile.txt";
     ifstream inputFile(filePath);
     if(inputFile.is_open()){
         //temp variables
@@ -184,7 +184,7 @@ void Simulation :: runSelectAlgorithm(){
 }
 bool Simulation :: execute(){
     if(input != "" && input != "exit"){
-        if(input.find("sim")){
+        if(input.find("sim") == 0){
             if(!readFile())
                 runSelectAlgorithm();
         }else{
