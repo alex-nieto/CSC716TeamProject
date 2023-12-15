@@ -13,10 +13,10 @@ const string SRTNname = "Shortest Remaining Time Next";
 SJF :: SJF() : Algorithm(){
     pre_emptive = false;
 }
-SJF :: SJF(int numOfProcesses, Process processes[], int switchTime) : Algorithm(SJFname, numOfProcesses, processes, switchTime){
+SJF :: SJF(int numOfProcesses, vector<Process> processes, int switchTime) : Algorithm(SJFname, numOfProcesses, processes, switchTime){
     this->pre_emptive = false;
 }
-SJF :: SJF(bool pre_emptive, int numOfProcesses, Process processes[], int switchTime) : Algorithm(pre_emptive ? SRTNname : SJFname, numOfProcesses, processes, switchTime){
+SJF :: SJF(bool pre_emptive, int numOfProcesses, vector<Process> processes, int switchTime) : Algorithm(pre_emptive ? SRTNname : SJFname, numOfProcesses, processes, switchTime){
     this->pre_emptive = pre_emptive;
 }
 void SJF :: implementAlg(){
