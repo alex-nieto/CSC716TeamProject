@@ -25,8 +25,8 @@ public:
     //default constructor
     SJF();
     //constructor initializers
-    SJF(int numOfProcesses, Process processes[], int switchTime);
-    SJF(bool pre_emptive, int numOfProcesses, Process processes[], int switchTime);
+    SJF(int numOfProcesses, vector<Process> processes, int switchTime);
+    SJF(bool pre_emptive, int numOfProcesses, vector<Process> processes, int switchTime);
     //implementation of algorithm method (override from parent class)
     void implementAlg() override;
 };
