@@ -46,13 +46,12 @@ vector<Process> Simulation :: getProcesses(){
 }
 bool Simulation :: readFile(){
     string filePath = input.substr(input.find("<") + 1);
-    erase(filePath, ' ');
     if(filePath == "" || filePath == " " || filePath == input){
         cout << "No file path indicated. Please try again." << endl;
         return true;
     }
     //open the file for reading
-    filePath = "/Users/alexnieto/Desktop/inputFile.txt";
+    filePath = "/Users/alexnieto/Desktop/Desktop - Alex’s MacBook Pro/inputFile.txt";
     ifstream inputFile(filePath);
     if(inputFile.is_open()){
         //temp variables
@@ -185,7 +184,7 @@ void Simulation :: runSelectAlgorithm(){
 }
 bool Simulation :: execute(){
     if(input != "" && input != "exit"){
-        if(!input.find("sim")){
+        if(input.find("sim") == 0){
             if(!readFile())
                 runSelectAlgorithm();
         }else{
